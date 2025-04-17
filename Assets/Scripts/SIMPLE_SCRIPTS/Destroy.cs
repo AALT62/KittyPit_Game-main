@@ -2,8 +2,14 @@ using UnityEngine;
 
 public class Destroy : MonoBehaviour
 {
+    public int blocks = 12;
     public bool colCheck = false;
     GameObject dirt;
+    public GameManager gameManager;
+    private void Start()
+    {
+        
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Diggable"))
@@ -12,6 +18,7 @@ public class Destroy : MonoBehaviour
             dirt = other.gameObject;
         }
     }
+    
     private void OnTriggerExit(Collider other)
     {
         colCheck = false;
@@ -23,8 +30,12 @@ public class Destroy : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.E))
             {
                Destroy(dirt);
+               blocks -= 1;
                colCheck = false;
-                
+               if (gameManager != null)
+               {
+                    gameManager.WinCheck();
+               }
             }
         }
     }

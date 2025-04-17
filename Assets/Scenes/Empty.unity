@@ -464,6 +464,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49452c8977c57674bb596c05b4f9d5ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  jumpSpeed: 2
+  gravity: 2
+  jumpPower: 1
   Speed: 25
   Cam: {fileID: 2086221101}
 --- !u!143 &217060941
@@ -503,7 +506,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8514afda4db109643915a90a49dcda6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blocks: 11
   colCheck: 0
+  gameManager: {fileID: 747269435}
 --- !u!1 &228191939
 GameObject:
   m_ObjectHideFlags: 0
@@ -983,7 +988,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 747269434}
-  - component: {fileID: 747269433}
   - component: {fileID: 747269435}
   m_Layer: 0
   m_Name: Game_Manager
@@ -992,18 +996,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &747269433
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 747269432}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 66cf3de15a473cd49a2f22be15a7f36d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &747269434
 Transform:
   m_ObjectHideFlags: 0
@@ -1031,6 +1023,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1dcc1483cb68cd244afb56fecc020505, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destroy: {fileID: 217060942}
 --- !u!1001 &856275394
 PrefabInstance:
   m_ObjectHideFlags: 0

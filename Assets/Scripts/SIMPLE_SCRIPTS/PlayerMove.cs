@@ -9,8 +9,7 @@ public class PlayerMove : MonoBehaviour
     public float jumpSpeed = 2.0f;
     public float gravity = 2.0f;
     private Vector3 playerVelocity;
-    private CharacterController _controller;
-
+    
     public float jumpPower = 1f; // 1 is ok for -9.8 gravity
     private Vector3 movingDirection = Vector3.zero;
 
