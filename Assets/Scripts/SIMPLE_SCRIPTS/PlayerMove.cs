@@ -1,13 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEditor.SceneView;
 
 public class PlayerMove : MonoBehaviour
 {
+    public float jumpSpeed = 2.0f;
+    public float gravity = 2.0f;
+    private Vector3 playerVelocity;
+    private CharacterController _controller;
+
+    public float jumpPower = 1f; // 1 is ok for -9.8 gravity
+    private Vector3 movingDirection = Vector3.zero;
 
 
-    CharacterController Controller;
+    CharacterController controller;
 
     public float Speed;
 
@@ -18,23 +26,31 @@ public class PlayerMove : MonoBehaviour
     void Start()
     {
 
-        Controller = GetComponent<CharacterController>();
+        controller = GetComponent<CharacterController>();
 
     }
 
     // Update is called once per frame
     void Update()
     {
+        playerVelocity += Physics.gravity * Time.deltaTime;
+
+        controller.Move(playerVelocity);
+
+        if (controller.isGrounded)
+        {
+            playerVelocity.y = Input.GetKeyDown(KeyCode.Space) ? jumpPower : 0;
+        }
 
         float Horizontal = Input.GetAxis("Horizontal") * Speed * Time.deltaTime;
         float Vertical = Input.GetAxis("Vertical") * Speed * Time.deltaTime;
 
         Vector3 Movement = Cam.transform.right * Horizontal + Cam.transform.forward * Vertical;
-        Movement.y = 0f;
+        Movement.y = -.00001f;
 
 
 
-        Controller.Move(Movement);
+        controller.Move(Movement);
 
         if (Movement.magnitude != 0f)
         {
