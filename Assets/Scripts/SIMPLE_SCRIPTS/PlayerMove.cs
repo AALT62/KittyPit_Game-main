@@ -9,7 +9,7 @@ public class PlayerMove : MonoBehaviour
     public float jumpSpeed = 2.0f;
     public float gravity = 2.0f;
     private Vector3 playerVelocity;
-    
+    private Vector3 spawnPoint = new Vector3(0.75f, 100.2f, -77.44f);
     public float jumpPower = 1f; // 1 is ok for -9.8 gravity
     private Vector3 movingDirection = Vector3.zero;
 
@@ -32,6 +32,19 @@ public class PlayerMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            Debug.Log("Key pressed H");
+            controller.enabled = false;
+            Debug.Log("charracter control disabled");
+            transform.position = spawnPoint;
+            Debug.Log("character moved");
+            controller.enabled = true;
+            Debug.Log("charracter control enabled");
+            //////
+            ///
+
+        }
         playerVelocity += Physics.gravity * Time.deltaTime;
 
         controller.Move(playerVelocity);
