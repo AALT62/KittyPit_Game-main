@@ -30,7 +30,7 @@ public class Destroy : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.E))
             {
                Destroy(dirt);
-               blocks -= 1;
+               blocks -= 0;
                colCheck = false;
                if (gameManager != null)
                {

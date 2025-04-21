@@ -3,10 +3,13 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public Destroy destroy;
+
+    public GameObject popupPanel;
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        popupPanel.SetActive(false);
         
     }
 
@@ -18,6 +21,7 @@ public class GameManager : MonoBehaviour
             if (destroy.blocks <= 0)
             {
                 Debug.Log("You win! All blocks destroyed.");
+                popupPanel.SetActive(true);
             }
         }
         else
