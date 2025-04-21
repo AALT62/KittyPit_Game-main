@@ -3177,7 +3177,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1485360079541394003, guid: ce7a8e897e65d3d429e3bc82195194ca, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -9.98
+
+      value: -0.18
+
       objectReference: {fileID: 0}
     - target: {fileID: 1485360079541394003, guid: ce7a8e897e65d3d429e3bc82195194ca, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3185,7 +3187,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1485360079541394003, guid: ce7a8e897e65d3d429e3bc82195194ca, type: 3}
       propertyPath: m_LocalPosition.z
+
       value: 3.33
+
       objectReference: {fileID: 0}
     - target: {fileID: 1485360079541394003, guid: ce7a8e897e65d3d429e3bc82195194ca, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3215,6 +3219,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2647846222026510242, guid: ce7a8e897e65d3d429e3bc82195194ca, type: 3}
+      propertyPath: m_Radius
+      value: 0.880319
+      objectReference: {fileID: 0}
+    - target: {fileID: 2647846222026510242, guid: ce7a8e897e65d3d429e3bc82195194ca, type: 3}
+      propertyPath: m_Center.x
+      value: 0.20472515
+      objectReference: {fileID: 0}
+    - target: {fileID: 2647846222026510242, guid: ce7a8e897e65d3d429e3bc82195194ca, type: 3}
+      propertyPath: m_Center.z
+      value: 0.4893273
+      objectReference: {fileID: 0}
     - target: {fileID: 6454388640968573687, guid: ce7a8e897e65d3d429e3bc82195194ca, type: 3}
       propertyPath: m_Name
       value: Player
@@ -3230,6 +3246,7 @@ PrefabInstance:
     m_RemovedGameObjects:
     - {fileID: 4537566505147497346, guid: ce7a8e897e65d3d429e3bc82195194ca, type: 3}
     - {fileID: 5263174542615075709, guid: ce7a8e897e65d3d429e3bc82195194ca, type: 3}
+    - {fileID: 3882298182252378305, guid: ce7a8e897e65d3d429e3bc82195194ca, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 1485360079541394003, guid: ce7a8e897e65d3d429e3bc82195194ca, type: 3}
       insertIndex: -1
