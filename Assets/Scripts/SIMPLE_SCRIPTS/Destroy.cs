@@ -7,10 +7,11 @@ public class Destroy : MonoBehaviour
     GameObject dirt;
     public GameManager gameManager;
     public int dirtValue =1;
-    
+    private PlayerInventory playerInventory;
+
     private void Start()
     {
-        
+        playerInventory = GetComponent<PlayerInventory>();
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -27,6 +28,32 @@ public class Destroy : MonoBehaviour
     }
     void Update()
     {
+        if (colCheck && Input.GetKeyDown(KeyCode.E))
+        {
+            Debug.Log("Key pressed E");
+
+            if (dirt != null)
+            {
+                Destroy(dirt);
+                colCheck = false;
+
+                if (playerInventory != null)
+                {
+                    playerInventory.dirtCount += playerInventory.dirtValue;
+                    Debug.Log("Total Dirt: " + playerInventory.dirtCount);
+                }
+
+                blocks -= 1;
+
+                if (gameManager != null)
+                {
+                    gameManager.WinCheck();
+                }
+            }
+        }
+    }
+    /*void Update()
+    {
         if (colCheck == true)
         {
             if (Input.GetKeyDown(KeyCode.E))
@@ -41,5 +68,5 @@ public class Destroy : MonoBehaviour
                }
             }
         }
-    }
+    }*/
 }

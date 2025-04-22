@@ -26,7 +26,7 @@ public class Timer : MonoBehaviour
     void Update()
     {
         timer -= Time.deltaTime;
-        UpdateTimerUI();
+        
 
         if (timer <= 0f)
         {
@@ -36,7 +36,7 @@ public class Timer : MonoBehaviour
         }
     }
 
-    void UpdateTimerUI()
+    public void UpdateTimerUI()
     {
         TimeSpan time = TimeSpan.FromSeconds(timer);
 

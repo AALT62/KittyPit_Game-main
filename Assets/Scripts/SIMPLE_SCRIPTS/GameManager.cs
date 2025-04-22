@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
             if (destroy.blocks <= 0)
             {
                 Debug.Log("You win! All blocks destroyed.");
-                popupPanel.SetActive(true);
+                
             }
         }
         else
