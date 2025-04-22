@@ -6,6 +6,8 @@ public class Destroy : MonoBehaviour
     public bool colCheck = false;
     GameObject dirt;
     public GameManager gameManager;
+    public int dirtValue =1;
+    
     private void Start()
     {
         
@@ -29,9 +31,9 @@ public class Destroy : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
-                Debug.Log("Key pressed e");
-                Destroy(dirt);
-               blocks -= 0;
+               Debug.Log("Key pressed e");
+               Destroy(dirt);
+               
                colCheck = false;
                if (gameManager != null)
                {
