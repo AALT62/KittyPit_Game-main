@@ -8,10 +8,12 @@ public class Destroy : MonoBehaviour
     public GameManager gameManager;
     public int dirtValue = 1;
     private PlayerInventory playerInventory;
-
+    public AudioClip digSound;
+    private AudioSource audioSource;
     private void Start()
     {
         playerInventory = GetComponent<PlayerInventory>();
+        audioSource = GetComponent<AudioSource>();
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -38,6 +40,7 @@ public class Destroy : MonoBehaviour
                 {
 
                     Destroy(dirt);
+                    audioSource.PlayOneShot(digSound);
                     colCheck = false;
 
                     if (playerInventory != null)
