@@ -6,7 +6,7 @@ public class Destroy : MonoBehaviour
     public bool colCheck = false;
     GameObject dirt;
     public GameManager gameManager;
-    public int dirtValue =1;
+    public int dirtValue = 1;
     private PlayerInventory playerInventory;
 
     private void Start()
@@ -21,7 +21,7 @@ public class Destroy : MonoBehaviour
             dirt = other.gameObject;
         }
     }
-    
+
     private void OnTriggerExit(Collider other)
     {
         colCheck = false;
@@ -34,39 +34,26 @@ public class Destroy : MonoBehaviour
 
             if (dirt != null)
             {
-                Destroy(dirt);
-                colCheck = false;
-
-                if (playerInventory != null)
+                if (playerInventory.dirtCount < playerInventory.dirtMax)
                 {
-                    playerInventory.dirtCount += playerInventory.dirtValue;
-                    Debug.Log("Total Dirt: " + playerInventory.dirtCount);
-                }
 
-                blocks -= 1;
+                    Destroy(dirt);
+                    colCheck = false;
 
-                if (gameManager != null)
-                {
-                    gameManager.WinCheck();
+                    if (playerInventory != null)
+                    {
+                        playerInventory.dirtCount += playerInventory.dirtValue;
+                        Debug.Log("Total Dirt: " + playerInventory.dirtCount);
+                    }
+
+                    blocks -= 1;
+
+                    if (gameManager != null)
+                    {
+                        gameManager.WinCheck();
+                    }
                 }
             }
         }
     }
-    /*void Update()
-    {
-        if (colCheck == true)
-        {
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-               Debug.Log("Key pressed e");
-               Destroy(dirt);
-               
-               colCheck = false;
-               if (gameManager != null)
-               {
-                    gameManager.WinCheck();
-               }
-            }
-        }
-    }*/
 }

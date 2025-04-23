@@ -28,21 +28,24 @@ public class PlayerMove : MonoBehaviour
         controller = GetComponent<CharacterController>();
 
     }
-
+    public void PlayerRespawn()
+    {
+        Debug.Log("Key pressed H");
+        controller.enabled = false;
+        Debug.Log("charracter control disabled");
+        transform.position = spawnPoint;
+        Debug.Log("character moved");
+        controller.enabled = true;
+        Debug.Log("charracter control enabled");
+        //////
+        ///
+    }
     // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.H))
         {
-            Debug.Log("Key pressed H");
-            controller.enabled = false;
-            Debug.Log("charracter control disabled");
-            transform.position = spawnPoint;
-            Debug.Log("character moved");
-            controller.enabled = true;
-            Debug.Log("charracter control enabled");
-            //////
-            ///
+            PlayerRespawn();
 
         }
         playerVelocity += Physics.gravity * Time.deltaTime;

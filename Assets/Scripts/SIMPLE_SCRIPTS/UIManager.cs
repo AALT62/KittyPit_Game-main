@@ -5,6 +5,7 @@ public class UIManager : MonoBehaviour
 {
     [Header("Inventory UI")]
     public TextMeshProUGUI dirtText;
+    public TextMeshProUGUI cashText;  // Display for cash
 
     [Header("Timer UI")]
     public TextMeshProUGUI timerText;
@@ -16,6 +17,7 @@ public class UIManager : MonoBehaviour
     void Update()
     {
         UpdateDirtUI();  // Update dirt count on UI
+        UpdateCashUI();  // Update cash UI
         UpdateTimerUI(); // Update timer on UI
     }
 
@@ -24,6 +26,14 @@ public class UIManager : MonoBehaviour
         if (playerInventory != null)
         {
             dirtText.text = "Dirt: " + playerInventory.dirtCount;
+        }
+    }
+
+    void UpdateCashUI()
+    {
+        if (playerInventory != null)
+        {
+            cashText.text = "Cash: $" + playerInventory.cash;
         }
     }
 
