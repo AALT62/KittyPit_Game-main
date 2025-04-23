@@ -2,25 +2,30 @@ using UnityEngine;
 
 public class PanelToggleOnHold : MonoBehaviour
 {
-    public GameObject inventoryPanel; // Assign in Inspector
+    public GameObject inventoryPanel;
     public GameObject shopPanel;
+    public GameObject gameUi;
+
     void Update()
     {
-        if (Input.GetKey(KeyCode.B))
+        bool isHoldingB = Input.GetKey(KeyCode.B);
+        bool isHoldingTab = Input.GetKey(KeyCode.Tab);
+
+        // Toggle UI panels
+        shopPanel.SetActive(isHoldingB);
+        inventoryPanel.SetActive(isHoldingTab);
+
+        // Show game UI only when neither panel is open
+        gameUi.SetActive(!isHoldingB && !isHoldingTab);
+
+        // Pause ONLY if shop is open
+        if (isHoldingB)
         {
-            shopPanel.SetActive(true);
+            Time.timeScale = 0f;  // Pause the game if B is held down
         }
         else
         {
-            shopPanel.SetActive(false);
-        }
-        if (Input.GetKey(KeyCode.Tab))
-        {
-            inventoryPanel.SetActive(true);
-        }
-        else
-        {
-            inventoryPanel.SetActive(false);
+            Time.timeScale = 1f;  // Resume the game if B is not held down
         }
     }
 }
