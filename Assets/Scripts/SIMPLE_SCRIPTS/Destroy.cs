@@ -6,9 +6,14 @@ public class Destroy : MonoBehaviour
     public bool colCheck = false;
     GameObject dirt;
     public GameManager gameManager;
+    public int dirtValue = 1;
+    private PlayerInventory playerInventory;
+    public AudioClip digSound;
+    private AudioSource audioSource;
     private void Start()
     {
-        
+        playerInventory = GetComponent<PlayerInventory>();
+        audioSource = GetComponent<AudioSource>();
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -18,24 +23,39 @@ public class Destroy : MonoBehaviour
             dirt = other.gameObject;
         }
     }
-    
+
     private void OnTriggerExit(Collider other)
     {
         colCheck = false;
     }
     void Update()
     {
-        if (colCheck == true)
+        if (colCheck && Input.GetKeyDown(KeyCode.E))
         {
-            if (Input.GetKeyDown(KeyCode.E))
+            Debug.Log("Key pressed E");
+
+            if (dirt != null)
             {
-               Destroy(dirt);
-               blocks -= 0;
-               colCheck = false;
-               if (gameManager != null)
-               {
-                    gameManager.WinCheck();
-               }
+                if (playerInventory.dirtCount < playerInventory.dirtMax)
+                {
+
+                    Destroy(dirt);
+                    audioSource.PlayOneShot(digSound);
+                    colCheck = false;
+
+                    if (playerInventory != null)
+                    {
+                        playerInventory.dirtCount += playerInventory.dirtValue;
+                        Debug.Log("Total Dirt: " + playerInventory.dirtCount);
+                    }
+
+                    blocks -= 1;
+
+                    if (gameManager != null)
+                    {
+                        gameManager.WinCheck();
+                    }
+                }
             }
         }
     }
