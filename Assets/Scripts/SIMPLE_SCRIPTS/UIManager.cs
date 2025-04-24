@@ -6,6 +6,7 @@ public class UIManager : MonoBehaviour
     [Header("Inventory UI")]
     public TextMeshProUGUI dirtText;
     public TextMeshProUGUI cashText;  // Display for cash
+    public TextMeshProUGUI prestigeText;  // Display for prestige level
 
     [Header("Timer UI")]
     public TextMeshProUGUI timerText;
@@ -19,6 +20,7 @@ public class UIManager : MonoBehaviour
         UpdateDirtUI();  // Update dirt count on UI
         UpdateCashUI();  // Update cash UI
         UpdateTimerUI(); // Update timer on UI
+        UpdatePrestigeUI();  // Update prestige level UI
     }
 
     void UpdateDirtUI()
@@ -42,6 +44,14 @@ public class UIManager : MonoBehaviour
         if (timerScript != null)
         {
             timerScript.UpdateTimerUI(); // Call the method from the Timer script to update the timer UI
+        }
+    }
+
+    void UpdatePrestigeUI()
+    {
+        if (playerInventory != null && prestigeText != null)
+        {
+            prestigeText.text = "Prestige: " + playerInventory.prestigeLevel;
         }
     }
 }

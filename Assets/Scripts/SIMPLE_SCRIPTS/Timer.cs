@@ -56,6 +56,13 @@ public class Timer : MonoBehaviour
 
     void RespawnBlocks()
     {
+        // Check if blockPrefab is assigned
+        if (blockPrefab == null)
+        {
+            Debug.LogError("Block prefab is missing or destroyed.");
+            return; // Exit early to avoid any further issues
+        }
+
         Vector3 origin = spawnArea.position;
 
         for (int x = 0; x < gridWidth; x++)
@@ -64,18 +71,19 @@ public class Timer : MonoBehaviour
             {
                 for (int z = 0; z < gridDepth; z++)
                 {
-                    // Calculate the position for each block
                     Vector3 spawnPos = origin + new Vector3(
-                        x * spacing, // Offset for X axis
-                        y * spacing, // Offset for Y axis
-                        z * spacing  // Offset for Z axis
+                        x * spacing,
+                        y * spacing,
+                        z * spacing
                     );
 
-                    // Instantiate block at calculated position
+                    // Instantiate block if prefab is still valid
                     GameObject newBlock = Instantiate(blockPrefab, spawnPos, Quaternion.identity);
                     newBlock.transform.parent = spawnArea;
                 }
             }
         }
     }
+
+
 }
