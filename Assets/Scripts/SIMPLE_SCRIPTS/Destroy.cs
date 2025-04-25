@@ -36,6 +36,20 @@ public class Destroy : MonoBehaviour
         audioSource.loop = true; // Ensure the sound effect loops while held
     }
 
+
+//CONFLICT - FIX THIS
+    /*
+    public AudioSource audioSource;
+    //public Animation Dig;
+
+    private void Start()
+    {
+        playerInventory = GetComponent<PlayerInventory>();
+        audioSource = GetComponent<AudioSource>();
+        //Dig = gameObject.GetComponent<Animation>();
+    }
+    */
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Diggable"))
@@ -90,28 +104,35 @@ public class Destroy : MonoBehaviour
             {
                 StartDiggingSound();
             }
-
-            currentHoldTime += Time.deltaTime;
-            holdProgressBar.value = currentHoldTime / holdTimeRequired;
-
-            // Update the text timer to show the remaining hold time
-            float remainingTime = Mathf.Max(0f, holdTimeRequired - currentHoldTime); // Prevent negative time
-            holdTimeText.text = Mathf.Ceil(remainingTime).ToString("0") + "s"; // Display in seconds
-
-            if (currentHoldTime >= holdTimeRequired)
+            if (playerInventory.dirtCount < playerInventory.dirtMax)
             {
-                DestroyBlock();  // Call the method to destroy the block when the hold time is complete
+                Destroy(dirt);
+                audioSource.PlayOneShot(digSound);
+                //Animation.Play(Dig);
+                colCheck = false;
+
+                currentHoldTime += Time.deltaTime;
+                holdProgressBar.value = currentHoldTime / holdTimeRequired;
+
+                // Update the text timer to show the remaining hold time
+                float remainingTime = Mathf.Max(0f, holdTimeRequired - currentHoldTime); // Prevent negative time
+                holdTimeText.text = Mathf.Ceil(remainingTime).ToString("0") + "s"; // Display in seconds
+
+                if (currentHoldTime >= holdTimeRequired)
+                {
+                    DestroyBlock();  // Call the method to destroy the block when the hold time is complete
+                }
             }
-        }
-        else
-        {
-            // If the player releases the key, stop the sound
-            if (colCheck && Input.GetKeyUp(KeyCode.E))
+            else
             {
-                StopDiggingSound();  // Stop looping sound when player releases the key
-                currentHoldTime = 0f;
-                holdProgressBar.value = 0f;
-                holdTimeText.text = "";  // Clear the timer text
+                // If the player releases the key, stop the sound
+                if (colCheck && Input.GetKeyUp(KeyCode.E))
+                {
+                    StopDiggingSound();  // Stop looping sound when player releases the key
+                    currentHoldTime = 0f;
+                    holdProgressBar.value = 0f;
+                    holdTimeText.text = "";  // Clear the timer text
+                }
             }
         }
     }

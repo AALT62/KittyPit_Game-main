@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
     //Other
     private Rigidbody rb;
 
+
     //Rotation and look
     private float xRotation;
     private float sensitivity = 50f;
