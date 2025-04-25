@@ -36,6 +36,20 @@ public class Destroy : MonoBehaviour
         audioSource.loop = true; // Ensure the sound effect loops while held
     }
 
+
+//CONFLICT - FIX THIS
+    /*
+    public AudioSource audioSource;
+    //public Animation Dig;
+
+    private void Start()
+    {
+        playerInventory = GetComponent<PlayerInventory>();
+        audioSource = GetComponent<AudioSource>();
+        //Dig = gameObject.GetComponent<Animation>();
+    }
+    */
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Diggable"))
@@ -90,6 +104,12 @@ public class Destroy : MonoBehaviour
             {
                 StartDiggingSound();
             }
+                if (playerInventory.dirtCount < playerInventory.dirtMax)
+                {
+                    Destroy(dirt);
+                    audioSource.PlayOneShot(digSound);
+                    //Animation.Play(Dig);
+                    colCheck = false;
 
             currentHoldTime += Time.deltaTime;
             holdProgressBar.value = currentHoldTime / holdTimeRequired;
