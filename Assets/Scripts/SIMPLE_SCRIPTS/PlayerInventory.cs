@@ -1,4 +1,5 @@
 using UnityEngine;
+using TMPro;  // To use TMP_Text
 
 public class PlayerInventory : MonoBehaviour
 {
@@ -11,6 +12,12 @@ public class PlayerInventory : MonoBehaviour
     public float holdTime = 3f;    // Hold time for digging, this will change with shovel upgrade
     public Shop shop; // Assign this in the Inspector
 
+    // UI Text references for updating the inventory panel
+    [Header("UI References")]
+    public TMP_Text shovelStatusText;  // Text for displaying shovel status
+    public TMP_Text prestigeStatusText; // Text for displaying prestige status
+    public TMP_Text dirtText;           // Text for displaying dirt count
+    public TMP_Text cashText;           // Text for displaying cash
 
     [Header("Environment Switching")]
     public GameObject currentEnvironment;
@@ -24,6 +31,7 @@ public class PlayerInventory : MonoBehaviour
         dirtCount += amount;
         cash += amount * dirtValue;  // Earn cash based on dirt collected
         Debug.Log("Dirt collected: " + dirtCount + " | Cash: " + cash);
+        UpdateInventoryUI();  // Update inventory UI after adding dirt
     }
 
     // Sell dirt at the buy zone
@@ -44,6 +52,7 @@ public class PlayerInventory : MonoBehaviour
             dirtCount = 0;
 
             Debug.Log("Sold " + dirtSold + " dirt for $" + earnedCash + " | Current Cash: " + cash);
+            UpdateInventoryUI();  // Update inventory UI after selling dirt
         }
         else
         {
@@ -63,18 +72,21 @@ public class PlayerInventory : MonoBehaviour
             prestigeEnvironment.SetActive(true);
         }
     }
+
     public void SwitchShovel()
     {
         if (currentShovel != null)
         {
-            currentShovel.SetActive(false); 
+            currentShovel.SetActive(false);
         }
         if (upgradedShovel != null)
         {
             upgradedShovel.SetActive(true);
         }
-
+        hasUpgradedShovel = true;  // Update the shovel status to upgraded
+        UpdateInventoryUI();  // Update the inventory UI
     }
+
     void Start()
     {
         cash = 100;
@@ -102,6 +114,7 @@ public class PlayerInventory : MonoBehaviour
                 prestigeEnvironment.SetActive(true);
             }
         }
+
         if (hasUpgradedShovel == false)
         {
             if (currentShovel != null)
@@ -125,5 +138,31 @@ public class PlayerInventory : MonoBehaviour
             }
         }
 
+        // Initial UI update at start
+        UpdateInventoryUI();
+    }
+
+    // Update inventory UI with the latest player data
+    public void UpdateInventoryUI()
+    {
+        if (shovelStatusText != null)
+        {
+            shovelStatusText.text = "Shovel: " + (hasUpgradedShovel ? "Upgraded" : "Standard");
+        }
+
+        if (prestigeStatusText != null)
+        {
+            prestigeStatusText.text = "Prestige Level: " + (prestigeLevel > 0 ? prestigeLevel.ToString() : "None");
+        }
+
+        if (dirtText != null)
+        {
+            dirtText.text = "Dirt: " + dirtCount;
+        }
+
+        if (cashText != null)
+        {
+            cashText.text = "Cash: $" + cash;
+        }
     }
 }

@@ -1,7 +1,6 @@
 using UnityEngine;
 using TMPro;
-using UnityEngine.UI;
-using Unity.VisualScripting; // For Button reference
+using UnityEngine.UI;  // For Slider UI
 
 public class Shop : MonoBehaviour
 {
@@ -13,39 +12,41 @@ public class Shop : MonoBehaviour
     public Button shovelButton;
     public Button prestigeButton;
 
+    public AudioClip shovelSound;  // Sound effect for buying shovel
+    public AudioClip prestigeSound;  // Sound effect for buying prestige
+    private AudioSource audioSource;
+
     private int shovelUpgradeCost = 150;
     private int prestigeCost = 300;
 
     private void Start()
     {
-        // Initial check and UI update
-        Debug.Log("Shop Start - Player cash: " + playerInventory.cash);
+        // Initialize the audioSource reference
+        audioSource = GetComponent<AudioSource>();
+
+        // Update the UI
         UpdateUI();
     }
 
     public void BuyShovelUpgrade()
     {
-        Debug.Log("Attempting to buy shovel upgrade...");
-
         if (!playerInventory.hasUpgradedShovel && playerInventory.cash >= shovelUpgradeCost)
         {
             playerInventory.cash -= shovelUpgradeCost;
             playerInventory.hasUpgradedShovel = true;
             playerInventory.holdTime = 2f; // Apply effect for shovel upgrade
-            playerInventory.SwitchShovel();
             Debug.Log("Shovel upgraded!");
+
+            // Play shovel purchase sound
+            audioSource.PlayOneShot(shovelSound);
+
+            // Update the UI
             UpdateUI();
-        }
-        else
-        {
-            Debug.Log("Can't buy shovel upgrade. Current cash: " + playerInventory.cash);
         }
     }
 
     public void BuyPrestige()
     {
-        Debug.Log("Attempting to buy prestige...");
-
         if (playerInventory.prestigeLevel == 0 && playerInventory.cash >= prestigeCost)
         {
             playerInventory.cash -= prestigeCost;
@@ -55,35 +56,29 @@ public class Shop : MonoBehaviour
             playerInventory.SwitchEnvironment();
 
             Debug.Log("Prestige level increased!");
+
+            // Play prestige purchase sound
+            audioSource.PlayOneShot(prestigeSound);
+
+            // Update the UI
             UpdateUI();
         }
-        else
-        {
-            Debug.Log("Can't buy prestige. Current cash: " + playerInventory.cash);
-        }
+    }
+
+    public void RefreshUIFromOutside()
+    {
+        UpdateUI();
     }
 
     public void UpdateUI()
     {
-        Debug.Log("Updating UI...");
-        Debug.Log("Player cash: $" + playerInventory.cash);
-
-        // Update text labels
-        string shovelPriceTextValue = playerInventory.hasUpgradedShovel ? "Purchased" : "$" + shovelUpgradeCost;
-        shovelPriceText.text = shovelPriceTextValue;
-
-        string prestigePriceTextValue = playerInventory.prestigeLevel > 0 ? "Prestiged" : "$" + prestigeCost;
-        prestigePriceText.text = prestigePriceTextValue;
-
+        // Text labels
+        shovelPriceText.text = playerInventory.hasUpgradedShovel ? "Purchased" : "$" + shovelUpgradeCost;
+        prestigePriceText.text = playerInventory.prestigeLevel > 0 ? "Prestiged" : "$" + prestigeCost;
         cashText.text = "Cash: $" + playerInventory.cash;
 
-        // Debug logs for button conditions
-        Debug.Log("Shovel Button Interactable: " + (!playerInventory.hasUpgradedShovel && playerInventory.cash >= shovelUpgradeCost));
-        Debug.Log("Prestige Button Interactable: " + (playerInventory.prestigeLevel == 0 && playerInventory.cash >= prestigeCost));
-
-        // Button interactability logic
+        // Button interactable state
         shovelButton.interactable = !playerInventory.hasUpgradedShovel && playerInventory.cash >= shovelUpgradeCost;
         prestigeButton.interactable = playerInventory.prestigeLevel == 0 && playerInventory.cash >= prestigeCost;
     }
 }
-    

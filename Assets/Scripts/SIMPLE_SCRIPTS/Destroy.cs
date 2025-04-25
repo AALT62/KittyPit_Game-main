@@ -127,8 +127,10 @@ public class Destroy : MonoBehaviour
 
                 // Add dirt to inventory and update UI
                 playerInventory.dirtCount += playerInventory.dirtValue;
-                Debug.Log("Total Dirt: " + playerInventory.dirtCount);
 
+                playerInventory.UpdateInventoryUI();
+                Debug.Log("Total Dirt: " + playerInventory.dirtCount);
+                StopDiggingSound();
                 blocks -= 1;
 
                 // Check if the player has won or if there's any other game logic

@@ -8,6 +8,15 @@ public class BuyZone : MonoBehaviour
     [Header("References")]
     public PlayerInventory playerInventory;  // Assign in Inspector
 
+    public AudioClip dirtSellSound;  // Sound effect for selling dirt
+    private AudioSource audioSource;
+
+    private void Start()
+    {
+        // Initialize the audioSource reference
+        audioSource = GetComponent<AudioSource>();
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         // Check if the player entered the zone
@@ -35,7 +44,11 @@ public class BuyZone : MonoBehaviour
             if (playerInventory != null)
             {
                 playerInventory.SellDirt(dirtSellPrice);
-                shop.UpdateUI();
+
+                // Play dirt selling sound
+                audioSource.PlayOneShot(dirtSellSound);
+
+                shop.UpdateUI();  // Update UI after selling dirt
             }
         }
     }
