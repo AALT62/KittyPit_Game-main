@@ -9,8 +9,16 @@ public class PlayerInventory : MonoBehaviour
     public int prestigeLevel = 0;  // Increases over time
     public bool hasUpgradedShovel = false;
     public float holdTime = 3f;    // Hold time for digging, this will change with shovel upgrade
+    public Shop shop; // Assign this in the Inspector
 
-    // Add dirt to inventory and cash (optional)
+
+    [Header("Environment Switching")]
+    public GameObject currentEnvironment;
+    public GameObject prestigeEnvironment;
+    public GameObject currentShovel;
+    public GameObject upgradedShovel;
+
+    // Add dirt to inventory and cash
     public void AddDirt(int amount)
     {
         dirtCount += amount;
@@ -23,28 +31,19 @@ public class PlayerInventory : MonoBehaviour
     {
         if (dirtCount > 0)
         {
-            // Calculate how much dirt will be sold and how much cash will be earned
             int dirtSold = dirtCount;
             int earnedCash = dirtSold * sellPricePerDirt;
 
-            // Apply prestige bonus: Double the cash if the player has prestige level 1 or higher
+            // Prestige bonus: double the cash
             if (prestigeLevel > 0)
             {
-                earnedCash *= 2;  // Double the cash for the player after selling the dirt
+                earnedCash *= 2;
             }
 
-            cash += earnedCash;  // Add cash earned from selling dirt
-            dirtCount = 0;       // Empty the dirt inventory
+            cash += earnedCash;
+            dirtCount = 0;
 
             Debug.Log("Sold " + dirtSold + " dirt for $" + earnedCash + " | Current Cash: " + cash);
-
-            // Example condition for increasing prestige level
-            if (cash >= 1000)  // For example, when cash reaches 1000, increase prestige
-            {
-                prestigeLevel += 1;
-                cash = 0; // Reset cash after upgrading prestige
-                Debug.Log("Prestige Level Up! New Prestige: " + prestigeLevel);
-            }
         }
         else
         {
@@ -52,9 +51,79 @@ public class PlayerInventory : MonoBehaviour
         }
     }
 
+    // Called by the Shop when prestige is bought
+    public void SwitchEnvironment()
+    {
+        if (currentEnvironment != null)
+        {
+            currentEnvironment.SetActive(false);
+        }
+        if (prestigeEnvironment != null)
+        {
+            prestigeEnvironment.SetActive(true);
+        }
+    }
+    public void SwitchShovel()
+    {
+        if (currentShovel != null)
+        {
+            currentShovel.SetActive(false); 
+        }
+        if (upgradedShovel != null)
+        {
+            upgradedShovel.SetActive(true);
+        }
+
+    }
     void Start()
     {
-        // Optional: Start with a specific cash value
-        cash = 100;  // Starting amount of cash
+        cash = 100;
+
+        // Ensure only one environment is active at start
+        if (prestigeLevel == 0)
+        {
+            if (currentEnvironment != null)
+            {
+                currentEnvironment.SetActive(true);
+            }
+            if (prestigeEnvironment != null)
+            {
+                prestigeEnvironment.SetActive(false);
+            }
+        }
+        else
+        {
+            if (currentEnvironment != null)
+            {
+                currentEnvironment.SetActive(false);
+            }
+            if (prestigeEnvironment != null)
+            {
+                prestigeEnvironment.SetActive(true);
+            }
+        }
+        if (hasUpgradedShovel == false)
+        {
+            if (currentShovel != null)
+            {
+                currentShovel.SetActive(true);
+            }
+            if (upgradedShovel != null)
+            {
+                upgradedShovel.SetActive(false);
+            }
+        }
+        else
+        {
+            if (currentShovel != null)
+            {
+                currentShovel.SetActive(false);
+            }
+            if (upgradedShovel != null)
+            {
+                upgradedShovel.SetActive(true);
+            }
+        }
+
     }
 }

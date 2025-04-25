@@ -4,7 +4,7 @@ public class BuyZone : MonoBehaviour
 {
     public int dirtSellPrice = 5;  // The price for each dirt sold
     private bool isPlayerInZone = false;  // To check if player is inside the buy zone
-
+    public Shop shop;
     [Header("References")]
     public PlayerInventory playerInventory;  // Assign in Inspector
 
@@ -35,10 +35,7 @@ public class BuyZone : MonoBehaviour
             if (playerInventory != null)
             {
                 playerInventory.SellDirt(dirtSellPrice);
-            }
-            else
-            {
-                Debug.LogError("PlayerInventory not assigned!");
+                shop.UpdateUI();
             }
         }
     }
