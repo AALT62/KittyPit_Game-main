@@ -3517,6 +3517,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3982647426638938999, guid: ce7a8e897e65d3d429e3bc82195194ca, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: df2e20b0d1dd9a844b3c911ccf4843ee, type: 2}
     - target: {fileID: 6454388640968573687, guid: ce7a8e897e65d3d429e3bc82195194ca, type: 3}
       propertyPath: m_Name
       value: Player
@@ -3564,6 +3568,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6454388640968573687, guid: ce7a8e897e65d3d429e3bc82195194ca, type: 3}
       insertIndex: -1
       addedObject: {fileID: 217060960}
+    - targetCorrespondingSourceObject: {fileID: 8040172879174851614, guid: ce7a8e897e65d3d429e3bc82195194ca, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1329891965}
   m_SourcePrefab: {fileID: 100100000, guid: ce7a8e897e65d3d429e3bc82195194ca, type: 3}
 --- !u!1 &217060922 stripped
 GameObject:
@@ -22098,6 +22105,24 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.99999994, y: 0.99999994, z: 0.99999994}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &1329891963 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8040172879174851614, guid: ce7a8e897e65d3d429e3bc82195194ca, type: 3}
+  m_PrefabInstance: {fileID: 217060921}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1329891965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1329891963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac4e098746bbcce4c9d06b9264cf3999, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 0}
 --- !u!1001 &1334199943
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -27808,7 +27833,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 2.8740845, y: 227.0543}
+  m_AnchoredPosition: {x: 2.8740234, y: 227.05432}
   m_SizeDelta: {x: -47.9016, y: -507.7587}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1725511318
