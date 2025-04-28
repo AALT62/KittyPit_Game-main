@@ -4,43 +4,40 @@ using UnityEngine;
 
 public class CameraMove : MonoBehaviour
 {
+    public Transform player;  // Reference to the player
+    public float distance = 7.0f;  // Distance from the player
+    public float height = 3.0f;  // Height of the camera from the player
+    public float rotationSpeed = 3.0f;  // Speed of camera rotation
+    public float sensitivity = 3.0f;  // Mouse sensitivity
 
-    private const float YMin = -50.0f;
-    private const float YMax = 50.0f;
+    private float currentX = 0.0f;  // Horizontal rotation
+    private float currentY = 15.0f;  // Vertical rotation (angle)
 
-    public Transform lookAt;
-
-    public Transform Player;
-
-    public float distance = 10.0f;
-    private float currentX = 0.0f;
-    private float currentY = 0.0f;
-    public float sensivity = 4.0f;
-
-
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-
-
+        Cursor.lockState = CursorLockMode.Locked;  // Lock cursor to the center
+        Cursor.visible = false;  // Hide the cursor
     }
 
-    // Update is called once per frame
-    void LateUpdate()
+    private void LateUpdate()
     {
+        // Rotate the camera based on mouse input
+        currentX += Input.GetAxis("Mouse X") * sensitivity * Time.deltaTime;  // Horizontal rotation (camera)
+        currentY -= Input.GetAxis("Mouse Y") * sensitivity * Time.deltaTime;  // Vertical rotation (camera)
 
-        currentX += Input.GetAxis("Mouse X") * sensivity * Time.deltaTime;
-        currentY -= Input.GetAxis("Mouse Y") * sensivity * Time.deltaTime;
+        // Clamp vertical rotation to prevent flipping
+        currentY = Mathf.Clamp(currentY, -45f, 45f);
 
-        currentY = Mathf.Clamp(currentY, YMin, YMax);
+        // Calculate the new position for the camera based on player position and angle
+        Vector3 offset = new Vector3(0, height, -distance);
 
-        Vector3 Direction = new Vector3(0, 0, -distance);
+        // Rotate the camera around the player
         Quaternion rotation = Quaternion.Euler(currentY, currentX, 0);
-        transform.position = lookAt.position + rotation * Direction;
 
-        transform.LookAt(lookAt.position);
+        // Position the camera behind the player
+        transform.position = player.position + rotation * offset;
 
-
-
+        // Camera always looks at the player's back (look at the player's back, not their head)
+        transform.LookAt(player.position + Vector3.up * height);
     }
 }

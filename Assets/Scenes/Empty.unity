@@ -3550,6 +3550,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1485360079541394003, guid: ce7a8e897e65d3d429e3bc82195194ca, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2087334582}
+    - targetCorrespondingSourceObject: {fileID: 1485360079541394003, guid: ce7a8e897e65d3d429e3bc82195194ca, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1884549501}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 6454388640968573687, guid: ce7a8e897e65d3d429e3bc82195194ca, type: 3}
       insertIndex: -1
@@ -3646,9 +3649,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49452c8977c57674bb596c05b4f9d5ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 15
-  _jumpForce: 20
-  cam: {fileID: 2086221101}
+  moveSpeed: 10
+  sprintSpeed: 15
+  rotationSpeed: 0
+  orientation: {fileID: 1884549501}
 --- !u!114 &217060942
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3805,9 +3809,9 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 217060922}
   serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 5
-  m_AngularDrag: 0.05
+  m_Mass: 10
+  m_Drag: 0
+  m_AngularDrag: 0
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -30299,6 +30303,37 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.99999994, y: 0.99999994, z: 0.99999994}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &1884549500
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1884549501}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1884549501
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1884549500}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 217060923}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1906039666
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -32929,10 +32964,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87515b4012424064cbe1be0b939f3884, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lookAt: {fileID: 217060923}
-  Player: {fileID: 217060923}
+  player: {fileID: 217060923}
   distance: 10
-  sensivity: 400
+  height: 3
+  rotationSpeed: 5
+  sensitivity: 200
 --- !u!1001 &2087334581
 PrefabInstance:
   m_ObjectHideFlags: 0
