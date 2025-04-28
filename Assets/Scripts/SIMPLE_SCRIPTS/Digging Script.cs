@@ -1,3 +1,4 @@
+using System.Threading;
 using UnityEngine;
 
 public class PlayDiggingAnimation : MonoBehaviour
@@ -22,6 +23,7 @@ public class PlayDiggingAnimation : MonoBehaviour
             {
                 // Play the specified animation
                 animationComponent.Play(animationClipName);
+
                 Debug.Log("E key pressed. Playing digging animation!");
             }
             else
