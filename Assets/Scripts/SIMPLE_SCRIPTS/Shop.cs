@@ -7,17 +7,21 @@ public class Shop : MonoBehaviour
     public PlayerInventory playerInventory;
     public TMP_Text shovelPriceText;
     public TMP_Text prestigePriceText;
+    public TMP_Text parrotPriceText;
     public TMP_Text cashText; // Cash Text in Shop Panel
 
     public Button shovelButton;
     public Button prestigeButton;
+    public Button parrotButton;
 
     public AudioClip shovelSound;  // Sound effect for buying shovel
     public AudioClip prestigeSound;  // Sound effect for buying prestige
+    public AudioClip parrotSound; // Sound effect for buying parrot
     private AudioSource audioSource;
 
     private int shovelUpgradeCost = 150;
     private int prestigeCost = 300;
+    private int parrotCost = 500;
 
     private void Start()
     {
@@ -65,6 +69,22 @@ public class Shop : MonoBehaviour
         }
     }
 
+    public void BuyParrot()
+    {
+        if (!playerInventory.hasParrot && playerInventory.prestigeLevel >= 2 && playerInventory.cash >= parrotCost)
+        {
+            playerInventory.cash -= parrotCost;
+            playerInventory.hasParrot = true;
+            Debug.Log("Parrot purchased!");
+
+            // Play parrot purchase sound
+            audioSource.PlayOneShot(parrotSound);
+
+            // Update the UI
+            UpdateUI();
+        }
+    }
+
     public void RefreshUIFromOutside()
     {
         UpdateUI();
@@ -75,10 +95,12 @@ public class Shop : MonoBehaviour
         // Text labels
         shovelPriceText.text = playerInventory.hasUpgradedShovel ? "Purchased" : "$" + shovelUpgradeCost;
         prestigePriceText.text = playerInventory.prestigeLevel > 0 ? "Prestiged" : "$" + prestigeCost;
+        parrotPriceText.text = playerInventory.hasParrot ? "Owned" : "$" + parrotCost;
         cashText.text = "Cash: $" + playerInventory.cash;
 
         // Button interactable state
         shovelButton.interactable = !playerInventory.hasUpgradedShovel && playerInventory.cash >= shovelUpgradeCost;
         prestigeButton.interactable = playerInventory.prestigeLevel == 0 && playerInventory.cash >= prestigeCost;
+        parrotButton.interactable = playerInventory.prestigeLevel >= 2 && !playerInventory.hasParrot && playerInventory.cash >= parrotCost;
     }
 }

@@ -3530,9 +3530,10 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents:
-    - {fileID: 6083117658595632260, guid: ce7a8e897e65d3d429e3bc82195194ca, type: 3}
-    - {fileID: 1224688029817626510, guid: ce7a8e897e65d3d429e3bc82195194ca, type: 3}
-    - {fileID: 5691814872181137769, guid: ce7a8e897e65d3d429e3bc82195194ca, type: 3}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 1188891897813844716, guid: ce7a8e897e65d3d429e3bc82195194ca, type: 3}
     m_RemovedGameObjects:
     - {fileID: 4537566505147497346, guid: ce7a8e897e65d3d429e3bc82195194ca, type: 3}
     - {fileID: 5263174542615075709, guid: ce7a8e897e65d3d429e3bc82195194ca, type: 3}
@@ -3558,9 +3559,6 @@ PrefabInstance:
       addedObject: {fileID: 217060940}
     - targetCorrespondingSourceObject: {fileID: 6454388640968573687, guid: ce7a8e897e65d3d429e3bc82195194ca, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 217060941}
-    - targetCorrespondingSourceObject: {fileID: 6454388640968573687, guid: ce7a8e897e65d3d429e3bc82195194ca, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 217060942}
     - targetCorrespondingSourceObject: {fileID: 6454388640968573687, guid: ce7a8e897e65d3d429e3bc82195194ca, type: 3}
       insertIndex: -1
@@ -3568,6 +3566,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6454388640968573687, guid: ce7a8e897e65d3d429e3bc82195194ca, type: 3}
       insertIndex: -1
       addedObject: {fileID: 217060960}
+    - targetCorrespondingSourceObject: {fileID: 6454388640968573687, guid: ce7a8e897e65d3d429e3bc82195194ca, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 217060966}
     - targetCorrespondingSourceObject: {fileID: 8040172879174851614, guid: ce7a8e897e65d3d429e3bc82195194ca, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1329891965}
@@ -3645,36 +3646,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49452c8977c57674bb596c05b4f9d5ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpSpeed: 2
-  gravity: 2
-  jumpPower: 1
-  Speed: 25
-  Cam: {fileID: 2086221101}
---- !u!143 &217060941
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 217060922}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Height: 2
-  m_Radius: 0.5
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
+  _speed: 15
+  _jumpForce: 20
+  cam: {fileID: 2086221101}
 --- !u!114 &217060942
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3716,6 +3690,8 @@ MonoBehaviour:
   hasUpgradedShovel: 0
   holdTime: 3
   shop: {fileID: 1291049215}
+  hasParrot: 0
+  jumpBoost: 0.5
   shovelStatusText: {fileID: 198794836}
   prestigeStatusText: {fileID: 181283176}
   dirtText: {fileID: 922452828}
@@ -3821,6 +3797,33 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!54 &217060966
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 217060922}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 5
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 80
+  m_CollisionDetection: 0
 --- !u!1001 &219281480
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6068,11 +6071,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1763550516}
+  m_Father: {fileID: 1725511317}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -872.63, y: -390.13}
+  m_AnchoredPosition: {x: -875.504, y: -617.1843}
   m_SizeDelta: {x: 174.7419, y: 186.6915}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &351253970
@@ -11279,7 +11282,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 629314751}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -11287,11 +11290,11 @@ RectTransform:
   - {fileID: 941766545}
   - {fileID: 1351201267}
   - {fileID: 435198371}
-  m_Father: {fileID: 1763550516}
+  m_Father: {fileID: 1725511317}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -578, y: -381.47003}
+  m_AnchoredPosition: {x: -580.874, y: -608.52435}
   m_SizeDelta: {x: 396.9991, y: 152.6809}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &629314753
@@ -21432,11 +21435,14 @@ MonoBehaviour:
   playerInventory: {fileID: 217060948}
   shovelPriceText: {fileID: 1313471418}
   prestigePriceText: {fileID: 555893865}
+  parrotPriceText: {fileID: 0}
   cashText: {fileID: 1372978275}
   shovelButton: {fileID: 1111627744}
   prestigeButton: {fileID: 1808414283}
+  parrotButton: {fileID: 0}
   shovelSound: {fileID: 8300000, guid: 8dce02ea40a65fa41bc85d06d91f6d8e, type: 3}
   prestigeSound: {fileID: 8300000, guid: 8dce02ea40a65fa41bc85d06d91f6d8e, type: 3}
+  parrotSound: {fileID: 0}
 --- !u!4 &1291049216
 Transform:
   m_ObjectHideFlags: 0
@@ -27829,6 +27835,8 @@ RectTransform:
   - {fileID: 609693526}
   - {fileID: 1025769744}
   - {fileID: 1464898610}
+  - {fileID: 629314752}
+  - {fileID: 351253969}
   m_Father: {fileID: 1763550516}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -28255,8 +28263,6 @@ RectTransform:
   - {fileID: 1725511317}
   - {fileID: 32055615}
   - {fileID: 675406826}
-  - {fileID: 629314752}
-  - {fileID: 351253969}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}

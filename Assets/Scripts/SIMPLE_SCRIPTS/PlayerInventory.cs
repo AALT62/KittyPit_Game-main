@@ -11,7 +11,9 @@ public class PlayerInventory : MonoBehaviour
     public bool hasUpgradedShovel = false;
     public float holdTime = 3f;    // Hold time for digging, this will change with shovel upgrade
     public Shop shop; // Assign this in the Inspector
+    public bool hasParrot = false;
 
+    public float jumpBoost = 0.5f; // Extra jump boost if player owns parrot
     // UI Text references for updating the inventory panel
     [Header("UI References")]
     public TMP_Text shovelStatusText;  // Text for displaying shovel status
