@@ -94,6 +94,17 @@ public class PlayerMovementAdvanced : MonoBehaviour
         rb.linearVelocity = Vector3.zero; // Reset the velocity
         transform.position = spawnPoint; // Reset the position to spawn point
     }
+    private bool CheckIfGrounded()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, playerHeight * 0.5f + 0.3f))
+        {
+            string tag = hit.collider.tag;
+            return tag == "Ground" || tag == "Diggable";
+        }
+
+        return false;
+    }
     private void Start()
     {
         climbingScriptDone = GetComponent<ClimbingDone>();
@@ -108,7 +119,8 @@ public class PlayerMovementAdvanced : MonoBehaviour
     private void Update()
     {
         // ground check
-        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
+        grounded = CheckIfGrounded();
+
 
         MyInput();
         SpeedControl();
@@ -131,16 +143,24 @@ public class PlayerMovementAdvanced : MonoBehaviour
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
+        Debug.Log("Grounded: " + grounded);  // Check if grounded is true
+        Debug.DrawRay(transform.position, Vector3.down * (playerHeight * 0.5f + 0.2f), grounded ? Color.green : Color.red);
 
-        // when to jump
+        if (Input.GetKey(jumpKey))
+        {
+            Debug.Log("Jump key pressed! readyToJump: " + readyToJump);  // Log readyToJump value
+        }
+
         if (Input.GetKey(jumpKey) && readyToJump && grounded)
         {
             readyToJump = false;
-
+            Debug.Log("passed through");
             Jump();
 
             Invoke(nameof(ResetJump), jumpCooldown);
         }
+
+
 
         // start crouch
         if (Input.GetKeyDown(crouchKey) && horizontalInput == 0 && verticalInput == 0)
@@ -348,11 +368,9 @@ public class PlayerMovementAdvanced : MonoBehaviour
 
     private void Jump()
     {
+        Debug.Log("Jump function called!");
         exitingSlope = true;
-
-        // reset y velocity
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
-
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
     }
     private void ResetJump()
