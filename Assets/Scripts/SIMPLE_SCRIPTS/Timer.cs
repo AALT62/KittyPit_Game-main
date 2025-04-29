@@ -16,7 +16,7 @@ public class Timer : MonoBehaviour
     public float spacing = 13f; // Spacing between blocks (should be at least 12.0f)
 
     private float timer;
-    public PlayerMove playerMove;
+    public PlayerMovementAdvanced playerMove;
     void Start()
     {
         timer = respawnInterval;
