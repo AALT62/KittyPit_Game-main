@@ -62,6 +62,8 @@ public class PlayerMovementAdvanced : MonoBehaviour
     Rigidbody rb;
 
     public MovementState state;
+    private PlayerInventory playerInventory;
+
     public enum MovementState
     {
         freeze,
@@ -81,7 +83,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
     public bool wallrunning;
     public bool climbing;
     public bool vaulting;
-
+    public float jumpability = 3f;
     public bool freeze;
     public bool unlimited;
 
@@ -89,19 +91,19 @@ public class PlayerMovementAdvanced : MonoBehaviour
 
     public TextMeshProUGUI text_speed;
     public TextMeshProUGUI text_mode;
+
     public void PlayerRespawn()
     {
         rb.linearVelocity = Vector3.zero; // Reset the velocity
         transform.position = spawnPoint; // Reset the position to spawn point
     }
+
     private bool CheckIfGrounded()
     {
-
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, Vector3.down, out hit, playerHeight * 0.5f + 0.3f + 5f))
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, playerHeight * 0.5f + 0.3f+ jumpability))
         {
             Debug.Log("Raycast hit: " + hit.collider.name + ", Tag: " + hit.collider.tag);
-
             string tag = hit.collider.tag;
             return tag == "Ground" || tag == "Diggable";
         }
@@ -112,6 +114,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
     private void Start()
     {
         climbingScriptDone = GetComponent<ClimbingDone>();
+        playerInventory = GetComponent<PlayerInventory>();
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
 
@@ -122,9 +125,17 @@ public class PlayerMovementAdvanced : MonoBehaviour
 
     private void Update()
     {
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            PlayerRespawn();
+        }
         // ground check
         grounded = CheckIfGrounded();
-
+        if (playerInventory.hasParrot)
+        {
+            jumpability = 10f;
+        }
 
         MyInput();
         SpeedControl();
@@ -158,13 +169,11 @@ public class PlayerMovementAdvanced : MonoBehaviour
         if (Input.GetKey(jumpKey) && readyToJump && grounded)
         {
             readyToJump = false;
-            Debug.Log("passed through");
+            Debug.Log("Jumping...");
             Jump();
 
             Invoke(nameof(ResetJump), jumpCooldown);
         }
-
-
 
         // start crouch
         if (Input.GetKeyDown(crouchKey) && horizontalInput == 0 && verticalInput == 0)
@@ -228,13 +237,11 @@ public class PlayerMovementAdvanced : MonoBehaviour
         {
             state = MovementState.sliding;
 
-            // increase speed by one every second
             if (OnSlope() && rb.linearVelocity.y < 0.1f)
             {
                 desiredMoveSpeed = slideSpeed;
                 keepMomentum = true;
             }
-
             else
                 desiredMoveSpeed = sprintSpeed;
         }
@@ -286,7 +293,6 @@ public class PlayerMovementAdvanced : MonoBehaviour
 
         lastDesiredMoveSpeed = desiredMoveSpeed;
 
-        // deactivate keepMomentum
         if (Mathf.Abs(desiredMoveSpeed - moveSpeed) < 0.1f) keepMomentum = false;
     }
 
@@ -326,7 +332,6 @@ public class PlayerMovementAdvanced : MonoBehaviour
         // calculate movement direction
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
-        // on slope
         if (OnSlope() && !exitingSlope)
         {
             rb.AddForce(GetSlopeMoveDirection(moveDirection) * moveSpeed * 20f, ForceMode.Force);
@@ -334,34 +339,26 @@ public class PlayerMovementAdvanced : MonoBehaviour
             if (rb.linearVelocity.y > 0)
                 rb.AddForce(Vector3.down * 80f, ForceMode.Force);
         }
-
-        // on ground
         else if (grounded)
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
 
-        // in air
         else if (!grounded)
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
 
-        // turn gravity off while on slope
         if (!wallrunning) rb.useGravity = !OnSlope();
     }
 
     private void SpeedControl()
     {
-        // limiting speed on slope
         if (OnSlope() && !exitingSlope)
         {
             if (rb.linearVelocity.magnitude > moveSpeed)
                 rb.linearVelocity = rb.linearVelocity.normalized * moveSpeed;
         }
-
-        // limiting speed on ground or in air
         else
         {
             Vector3 flatVel = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
 
-            // limit velocity if needed
             if (flatVel.magnitude > moveSpeed)
             {
                 Vector3 limitedVel = flatVel.normalized * moveSpeed;
@@ -372,15 +369,18 @@ public class PlayerMovementAdvanced : MonoBehaviour
 
     private void Jump()
     {
-        Debug.Log("Jump function called!");
-        exitingSlope = true;
-        rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
-        rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+        if (grounded)  // Only allow jump if grounded
+        {
+            Debug.Log("Jump function called!");
+            exitingSlope = true;
+            rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z); // Reset the Y velocity before jumping
+            rb.AddForce(transform.up * jumpForce, ForceMode.Impulse); // Apply jump force
+        }
     }
+
     private void ResetJump()
     {
         readyToJump = true;
-
         exitingSlope = false;
     }
 
@@ -406,7 +406,6 @@ public class PlayerMovementAdvanced : MonoBehaviour
 
         if (OnSlope())
             text_speed.SetText("Speed: " + Round(rb.linearVelocity.magnitude, 1) + " / " + Round(moveSpeed, 1));
-
         else
             text_speed.SetText("Speed: " + Round(flatVel.magnitude, 1) + " / " + Round(moveSpeed, 1));
 

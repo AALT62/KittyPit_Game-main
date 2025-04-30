@@ -21,6 +21,7 @@ public class Shop : MonoBehaviour
 
     private int shovelUpgradeCost = 150;
     private int prestigeCost = 300;
+    private int prestigeLevel2Cost = 600; // Example cost for reaching prestige level 2
     private int parrotCost = 500;
 
     private void Start()
@@ -38,6 +39,7 @@ public class Shop : MonoBehaviour
         {
             playerInventory.cash -= shovelUpgradeCost;
             playerInventory.hasUpgradedShovel = true;
+            playerInventory.SwitchShovel();
             playerInventory.holdTime = 2f; // Apply effect for shovel upgrade
             Debug.Log("Shovel upgraded!");
 
@@ -56,10 +58,26 @@ public class Shop : MonoBehaviour
             playerInventory.cash -= prestigeCost;
             playerInventory.prestigeLevel = 1;
 
-            // Switch to new environment
+            // Switch to new environment for level 1
             playerInventory.SwitchEnvironment();
 
-            Debug.Log("Prestige level increased!");
+            Debug.Log("Prestige level increased to 1!");
+
+            // Play prestige purchase sound
+            audioSource.PlayOneShot(prestigeSound);
+
+            // Update the UI
+            UpdateUI();
+        }
+        else if (playerInventory.prestigeLevel == 1 && playerInventory.cash >= prestigeLevel2Cost)
+        {
+            playerInventory.cash -= prestigeLevel2Cost;
+            playerInventory.prestigeLevel = 2;
+
+            // Switch to new environment for level 2 (optional)
+            // playerInventory.SwitchToPrestigeLevel2(); // Add this if you want a separate environment
+
+            Debug.Log("Prestige level increased to 2!");
 
             // Play prestige purchase sound
             audioSource.PlayOneShot(prestigeSound);
@@ -69,12 +87,20 @@ public class Shop : MonoBehaviour
         }
     }
 
+
     public void BuyParrot()
     {
         if (!playerInventory.hasParrot && playerInventory.prestigeLevel >= 2 && playerInventory.cash >= parrotCost)
         {
             playerInventory.cash -= parrotCost;
             playerInventory.hasParrot = true;
+
+            // Make the parrot visible once purchased
+            if (playerInventory.parrot != null)
+            {
+                playerInventory.parrot.SetActive(true); // Make the parrot visible
+            }
+
             Debug.Log("Parrot purchased!");
 
             // Play parrot purchase sound
@@ -85,6 +111,7 @@ public class Shop : MonoBehaviour
         }
     }
 
+
     public void RefreshUIFromOutside()
     {
         UpdateUI();
@@ -92,15 +119,50 @@ public class Shop : MonoBehaviour
 
     public void UpdateUI()
     {
-        // Text labels
-        shovelPriceText.text = playerInventory.hasUpgradedShovel ? "Purchased" : "$" + shovelUpgradeCost;
-        prestigePriceText.text = playerInventory.prestigeLevel > 0 ? "Prestiged" : "$" + prestigeCost;
-        parrotPriceText.text = playerInventory.hasParrot ? "Owned" : "$" + parrotCost;
-        cashText.text = "Cash: $" + playerInventory.cash;
+        // Update shovel text
+        if (playerInventory.hasUpgradedShovel)
+        {
+            shovelPriceText.text = "Purchased";
+            shovelButton.interactable = false;
+        }
+        else
+        {
+            shovelPriceText.text = "$" + shovelUpgradeCost;
+            shovelButton.interactable = playerInventory.cash >= shovelUpgradeCost;
+        }
 
-        // Button interactable state
-        shovelButton.interactable = !playerInventory.hasUpgradedShovel && playerInventory.cash >= shovelUpgradeCost;
-        prestigeButton.interactable = playerInventory.prestigeLevel == 0 && playerInventory.cash >= prestigeCost;
-        parrotButton.interactable = playerInventory.prestigeLevel >= 2 && !playerInventory.hasParrot && playerInventory.cash >= parrotCost;
+        // Update prestige text and button
+        if (playerInventory.prestigeLevel == 0)
+        {
+            prestigePriceText.text = "$" + prestigeCost;
+            prestigeButton.interactable = playerInventory.cash >= prestigeCost;
+        }
+        else if (playerInventory.prestigeLevel == 1)
+        {
+            prestigePriceText.text = "$" + prestigeLevel2Cost;
+            prestigeButton.interactable = playerInventory.cash >= prestigeLevel2Cost;
+        }
+        else
+        {
+            prestigePriceText.text = "Prestiged";
+            prestigeButton.interactable = false;
+        }
+
+        // Update parrot text and button
+        if (playerInventory.hasParrot)
+        {
+            parrotPriceText.text = "Owned";
+            parrotButton.interactable = false;
+        }
+        else
+        {
+            parrotPriceText.text = "$" + parrotCost;
+            parrotButton.interactable = playerInventory.prestigeLevel >= 2 && playerInventory.cash >= parrotCost;
+        }
+
+        // Update cash display
+        cashText.text = "Cash: $" + playerInventory.cash;
     }
+
+
 }

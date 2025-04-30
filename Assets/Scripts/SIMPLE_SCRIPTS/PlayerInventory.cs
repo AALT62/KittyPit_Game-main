@@ -26,6 +26,7 @@ public class PlayerInventory : MonoBehaviour
     public GameObject prestigeEnvironment;
     public GameObject currentShovel;
     public GameObject upgradedShovel;
+    public GameObject parrot;
 
     // Add dirt to inventory and cash
     public void AddDirt(int amount)
@@ -77,22 +78,39 @@ public class PlayerInventory : MonoBehaviour
 
     public void SwitchShovel()
     {
+        // Ensure the current shovel exists before deactivating it
         if (currentShovel != null)
         {
-            currentShovel.SetActive(false);
+            currentShovel.SetActive(false); // Deactivate the current shovel model
         }
+
+        // Ensure the upgraded shovel exists before activating it
         if (upgradedShovel != null)
         {
-            upgradedShovel.SetActive(true);
+            upgradedShovel.SetActive(true); // Activate the upgraded shovel model
         }
-        hasUpgradedShovel = true;  // Update the shovel status to upgraded
-        UpdateInventoryUI();  // Update the inventory UI
+
+        // Update the inventory to reflect the shovel upgrade
+        hasUpgradedShovel = true;  // Mark that the shovel has been upgraded
+
+        // Update UI to reflect the change in the player's inventory
+        UpdateInventoryUI();
+
+        // Optionally, log for debugging
+        Debug.Log("Shovel upgraded and model switched!");
     }
+
 
     void Start()
     {
         cash = 100;
+        // Ensure the parrot is inactive at the start
+        if (parrot != null)
+        {
+            parrot.SetActive(false); // Parrot is invisible until purchased
+        }
 
+        // Existing start logic for other objects...
         // Ensure only one environment is active at start
         if (prestigeLevel == 0)
         {

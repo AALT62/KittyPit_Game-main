@@ -54,4 +54,5 @@ public class UIManager : MonoBehaviour
             prestigeText.text = "Prestige: " + playerInventory.prestigeLevel;
         }
     }
+
 }
