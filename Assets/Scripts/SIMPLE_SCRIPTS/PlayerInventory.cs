@@ -24,6 +24,7 @@ public class PlayerInventory : MonoBehaviour
     [Header("Environment Switching")]
     public GameObject currentEnvironment;
     public GameObject prestigeEnvironment;
+    public GameObject thirdEnvironment;
     public GameObject currentShovel;
     public GameObject upgradedShovel;
     public GameObject parrot;
@@ -66,15 +67,45 @@ public class PlayerInventory : MonoBehaviour
     // Called by the Shop when prestige is bought
     public void SwitchEnvironment()
     {
+        // Disable all environments first
         if (currentEnvironment != null)
         {
             currentEnvironment.SetActive(false);
         }
         if (prestigeEnvironment != null)
         {
-            prestigeEnvironment.SetActive(true);
+            prestigeEnvironment.SetActive(false);
+        }
+        if (thirdEnvironment != null)  // Ensure the third environment is hidden at the start
+        {
+            thirdEnvironment.SetActive(false);
+        }
+
+        // Switch based on prestige level
+        if (prestigeLevel == 0)
+        {
+            if (currentEnvironment != null)
+            {
+                currentEnvironment.SetActive(true);
+            }
+        }
+        else if (prestigeLevel == 1)
+        {
+            if (prestigeEnvironment != null)
+            {
+                prestigeEnvironment.SetActive(true);
+            }
+        }
+        else if (prestigeLevel >= 2)  // When prestige level is 2 or higher
+        {
+            if (thirdEnvironment != null)
+            {
+                thirdEnvironment.SetActive(true);
+            }
         }
     }
+
+
 
     public void SwitchShovel()
     {
@@ -104,49 +135,71 @@ public class PlayerInventory : MonoBehaviour
     void Start()
     {
         cash = 100;
+
         // Ensure the parrot is inactive at the start
         if (parrot != null)
         {
             parrot.SetActive(false); // Parrot is invisible until purchased
         }
 
-        // Existing start logic for other objects...
         // Ensure only one environment is active at start
         if (prestigeLevel == 0)
         {
             if (currentEnvironment != null)
             {
+                UpdateInventoryUI();
                 currentEnvironment.SetActive(true);
             }
             if (prestigeEnvironment != null)
             {
+                UpdateInventoryUI();
                 prestigeEnvironment.SetActive(false);
             }
+            if (thirdEnvironment != null)
+            {
+                UpdateInventoryUI();
+                thirdEnvironment.SetActive(false);  // Hide third environment at the start
+            }
         }
-        else
+        else if (prestigeLevel == 1)
         {
             if (currentEnvironment != null)
             {
+                UpdateInventoryUI();
                 currentEnvironment.SetActive(false);
             }
             if (prestigeEnvironment != null)
             {
+                UpdateInventoryUI();
                 prestigeEnvironment.SetActive(true);
+            }
+            if (thirdEnvironment != null)
+            {
+                UpdateInventoryUI();
+                thirdEnvironment.SetActive(false);  // Ensure third environment is still hidden
+            }
+        }
+        else if (prestigeLevel >= 2)
+        {
+            if (currentEnvironment != null)
+            {
+                UpdateInventoryUI();
+                currentEnvironment.SetActive(false);
+            }
+            if (prestigeEnvironment != null)
+            {
+                UpdateInventoryUI();
+                prestigeEnvironment.SetActive(false);
+            }
+            if (thirdEnvironment != null)
+            {
+                UpdateInventoryUI();
+                thirdEnvironment.SetActive(true);  // Show third environment when prestige level is 2 or higher
             }
         }
 
-        if (hasUpgradedShovel == false)
-        {
-            if (currentShovel != null)
-            {
-                currentShovel.SetActive(true);
-            }
-            if (upgradedShovel != null)
-            {
-                upgradedShovel.SetActive(false);
-            }
-        }
-        else
+        // Ensure the upgraded shovel is hidden at the start
+        if (hasUpgradedShovel)
         {
             if (currentShovel != null)
             {
@@ -154,7 +207,18 @@ public class PlayerInventory : MonoBehaviour
             }
             if (upgradedShovel != null)
             {
-                upgradedShovel.SetActive(true);
+                upgradedShovel.SetActive(true); // Show upgraded shovel if the player has it
+            }
+        }
+        else
+        {
+            if (currentShovel != null)
+            {
+                currentShovel.SetActive(true); // Show standard shovel if the player hasn't upgraded
+            }
+            if (upgradedShovel != null)
+            {
+                upgradedShovel.SetActive(false); // Hide upgraded shovel at the start
             }
         }
 
@@ -162,27 +226,44 @@ public class PlayerInventory : MonoBehaviour
         UpdateInventoryUI();
     }
 
+
+
     // Update inventory UI with the latest player data
     public void UpdateInventoryUI()
     {
         if (shovelStatusText != null)
         {
-            shovelStatusText.text = "Shovel: " + (hasUpgradedShovel ? "Upgraded" : "Standard");
+            if (hasUpgradedShovel)
+            {
+                shovelStatusText.text = "Shovel: Upgraded";
+            }
+            else
+            {
+                shovelStatusText.text = "Shovel: Standard";
+            }
         }
 
         if (prestigeStatusText != null)
         {
-            prestigeStatusText.text = "Prestige Level: " + (prestigeLevel > 0 ? prestigeLevel.ToString() : "None");
+            if (prestigeLevel > 0)
+            {
+                prestigeStatusText.text = "Prestige Level: " + prestigeLevel.ToString();
+            }
+            else
+            {
+                prestigeStatusText.text = "Prestige Level: None";
+            }
         }
 
         if (dirtText != null)
         {
-            dirtText.text = "Dirt: " + dirtCount;
+            dirtText.text = "Dirt: " + dirtCount.ToString();
         }
 
         if (cashText != null)
         {
-            cashText.text = "Cash: $" + cash;
+            cashText.text = "Cash: $" + cash.ToString();
         }
     }
+
 }

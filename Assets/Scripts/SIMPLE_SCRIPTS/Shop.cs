@@ -18,7 +18,7 @@ public class Shop : MonoBehaviour
     public AudioClip prestigeSound;  // Sound effect for buying prestige
     public AudioClip parrotSound; // Sound effect for buying parrot
     private AudioSource audioSource;
-
+    public PlayerMovementAdvanced playerMove;
     private int shovelUpgradeCost = 150;
     private int prestigeCost = 300;
     private int prestigeLevel2Cost = 600; // Example cost for reaching prestige level 2
@@ -29,7 +29,22 @@ public class Shop : MonoBehaviour
         // Initialize the audioSource reference
         audioSource = GetComponent<AudioSource>();
 
-        // Update the UI
+        // Auto-assign playerInventory if it's not set in Inspector
+        if (playerInventory == null)
+        {
+            playerInventory = FindObjectOfType<PlayerInventory>();
+            if (playerInventory == null)
+            {
+                Debug.LogError("PlayerInventory not found! Assign it in the Inspector or make sure it's in the scene.");
+            }
+        }
+
+        // Auto-assign playerMove if not already set
+        if (playerMove == null)
+        {
+            playerMove = FindObjectOfType<PlayerMovementAdvanced>();
+        }
+
         UpdateUI();
     }
 
@@ -59,6 +74,7 @@ public class Shop : MonoBehaviour
             playerInventory.prestigeLevel = 1;
 
             // Switch to new environment for level 1
+            playerMove.PlayerRespawn();
             playerInventory.SwitchEnvironment();
 
             Debug.Log("Prestige level increased to 1!");
@@ -73,7 +89,8 @@ public class Shop : MonoBehaviour
         {
             playerInventory.cash -= prestigeLevel2Cost;
             playerInventory.prestigeLevel = 2;
-
+            playerMove.PlayerRespawn();
+            playerInventory.SwitchEnvironment();
             // Switch to new environment for level 2 (optional)
             // playerInventory.SwitchToPrestigeLevel2(); // Add this if you want a separate environment
 

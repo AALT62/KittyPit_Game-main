@@ -135,6 +135,8 @@ public class PlayerMovementAdvanced : MonoBehaviour
         if (playerInventory.hasParrot)
         {
             jumpability = 10f;
+            groundDrag = 6f;
+
         }
 
         MyInput();
