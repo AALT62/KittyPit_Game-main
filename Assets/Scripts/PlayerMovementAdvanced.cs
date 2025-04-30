@@ -84,7 +84,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
 
     public bool freeze;
     public bool unlimited;
-    
+
     public bool restricted;
 
     public TextMeshProUGUI text_speed;
@@ -96,15 +96,19 @@ public class PlayerMovementAdvanced : MonoBehaviour
     }
     private bool CheckIfGrounded()
     {
+
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, Vector3.down, out hit, playerHeight * 0.5f + 0.3f))
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, playerHeight * 0.5f + 0.3f + 5f))
         {
+            Debug.Log("Raycast hit: " + hit.collider.name + ", Tag: " + hit.collider.tag);
+
             string tag = hit.collider.tag;
             return tag == "Ground" || tag == "Diggable";
         }
 
         return false;
     }
+
     private void Start()
     {
         climbingScriptDone = GetComponent<ClimbingDone>();
@@ -340,7 +344,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
 
         // turn gravity off while on slope
-        if(!wallrunning) rb.useGravity = !OnSlope();
+        if (!wallrunning) rb.useGravity = !OnSlope();
     }
 
     private void SpeedControl()
