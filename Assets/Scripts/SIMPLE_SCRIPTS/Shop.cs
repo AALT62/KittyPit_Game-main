@@ -23,12 +23,14 @@ public class Shop : MonoBehaviour
     private int prestigeCost = 300;
     private int prestigeLevel2Cost = 600; // Example cost for reaching prestige level 2
     private int parrotCost = 500;
+    public Animator animator;
+
 
     private void Start()
     {
         // Initialize the audioSource reference
         audioSource = GetComponent<AudioSource>();
-
+        animator = GetComponent<Animator>();
         // Auto-assign playerInventory if it's not set in Inspector
         if (playerInventory == null)
         {
@@ -47,7 +49,6 @@ public class Shop : MonoBehaviour
 
         UpdateUI();
     }
-
     public void BuyShovelUpgrade()
     {
         if (!playerInventory.hasUpgradedShovel && playerInventory.cash >= shovelUpgradeCost)
@@ -81,6 +82,8 @@ public class Shop : MonoBehaviour
 
             // Play prestige purchase sound
             audioSource.PlayOneShot(prestigeSound);
+
+            
 
             // Update the UI
             UpdateUI();

@@ -23253,6 +23253,7 @@ GameObject:
   - component: {fileID: 1291049216}
   - component: {fileID: 1291049215}
   - component: {fileID: 1291049217}
+  - component: {fileID: 1291049218}
   m_Layer: 0
   m_Name: Shopmanager
   m_TagString: Untagged
@@ -23284,6 +23285,7 @@ MonoBehaviour:
   prestigeSound: {fileID: 8300000, guid: 8dce02ea40a65fa41bc85d06d91f6d8e, type: 3}
   parrotSound: {fileID: 8300000, guid: 8dce02ea40a65fa41bc85d06d91f6d8e, type: 3}
   playerMove: {fileID: 1917510251}
+  animator: {fileID: 0}
 --- !u!4 &1291049216
 Transform:
   m_ObjectHideFlags: 0
@@ -23396,6 +23398,28 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &1291049218
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1291049214}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a4353aed898bfa744928e3ed16682ccc, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &1297020191
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24839,15 +24863,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7970505149557145945, guid: 6faccd49bbbd3e24fa8f705ba7b70343, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.04763235
+      value: 0.047632135
       objectReference: {fileID: 0}
     - target: {fileID: 7970505149557145945, guid: 6faccd49bbbd3e24fa8f705ba7b70343, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.00000044772892
+      value: 0.00000044772887
       objectReference: {fileID: 0}
     - target: {fileID: 7970505149557145945, guid: 6faccd49bbbd3e24fa8f705ba7b70343, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.000000021324345
+      value: -0.000000021324281
       objectReference: {fileID: 0}
     - target: {fileID: 8361965831143341648, guid: 6faccd49bbbd3e24fa8f705ba7b70343, type: 3}
       propertyPath: m_LocalPosition.x
@@ -31250,6 +31274,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1291049215}
         m_TargetAssemblyTypeName: Shop, Assembly-CSharp
         m_MethodName: BuyPrestige
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
+      - m_Target: {fileID: 1291049215}
+        m_TargetAssemblyTypeName: Shop, Assembly-CSharp
+        m_MethodName: PlayAnimation
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
