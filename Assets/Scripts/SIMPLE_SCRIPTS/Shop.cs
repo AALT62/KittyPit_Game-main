@@ -24,10 +24,13 @@ public class Shop : MonoBehaviour
     private int prestigeLevel2Cost = 600; // Example cost for reaching prestige level 2
     private int parrotCost = 500;
     public Animator animator;
+    public Animation animationComponent;
+    public string animationClipName = "PresSilv"; // The name of the animation clip you want to play
 
 
     private void Start()
     {
+        animationComponent = GetComponent<Animation>(); //gets animation
         // Initialize the audioSource reference
         audioSource = GetComponent<AudioSource>();
         animator = GetComponent<Animator>();
@@ -83,7 +86,8 @@ public class Shop : MonoBehaviour
             // Play prestige purchase sound
             audioSource.PlayOneShot(prestigeSound);
 
-            
+            //plays animation
+            animationComponent.Play(animationClipName);
 
             // Update the UI
             UpdateUI();
