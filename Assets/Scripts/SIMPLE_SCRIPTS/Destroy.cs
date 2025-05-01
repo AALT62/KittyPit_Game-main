@@ -29,7 +29,7 @@ public class Destroy : MonoBehaviour
         audioSource = GetComponent<AudioSource>();  // Get the AudioSource component for background music
         audioSource.clip = backgroundMusic;
         audioSource.loop = true;
-        audioSource.volume = 0.05f; // Set background music volume (adjust as needed)
+        audioSource.volume = 0.005f; // Set background music volume (adjust as needed)
         audioSource.Play(); // Start playing background music immediately
         // Create and assign a new AudioSource for sound effects
         audioSource = gameObject.AddComponent<AudioSource>();

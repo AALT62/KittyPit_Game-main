@@ -26,7 +26,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
     public float jumpForce;
     public float jumpCooldown;
     public float airMultiplier;
-    bool readyToJump;
+    public bool readyToJump;
 
     [Header("Crouching")]
     public float crouchSpeed;
@@ -56,7 +56,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
 
     float horizontalInput;
     float verticalInput;
-
+    private AudioSource audioSource; // Reference to the AudioSource component
     Vector3 moveDirection;
 
     Rigidbody rb;
@@ -94,8 +94,10 @@ public class PlayerMovementAdvanced : MonoBehaviour
 
     public void PlayerRespawn()
     {
-        rb.linearVelocity = Vector3.zero; // Reset the velocity
+        
+        
         transform.position = spawnPoint; // Reset the position to spawn point
+        rb.linearVelocity = Vector3.zero; // Reset the velocity
     }
 
     private bool CheckIfGrounded()
@@ -116,6 +118,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
         climbingScriptDone = GetComponent<ClimbingDone>();
         playerInventory = GetComponent<PlayerInventory>();
         rb = GetComponent<Rigidbody>();
+        audioSource = GetComponent<AudioSource>();
         rb.freezeRotation = true;
 
         readyToJump = true;
@@ -125,6 +128,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
 
     private void Update()
     {
+        
 
         if (Input.GetKeyDown(KeyCode.R))
         {
@@ -172,6 +176,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
         {
             readyToJump = false;
             Debug.Log("Jumping...");
+
             Jump();
 
             Invoke(nameof(ResetJump), jumpCooldown);
