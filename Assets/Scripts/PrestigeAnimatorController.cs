@@ -6,30 +6,39 @@ public class PrestigeAnimatorController : MonoBehaviour
 
     private void Start()
     {
-        // Get the Animator component attached to this GameObject
         animator = GetComponent<Animator>();
 
-        // Check if the animator is assigned properly
         if (animator == null)
         {
             Debug.LogError("Animator component is missing!");
         }
     }
 
-    // This method will be called from the Shop script to trigger the prestige animation
     public void TriggerPrestigeAnimation()
     {
         if (animator != null)
         {
-            animator.SetTrigger("PrestigeTrigger");  // Trigger the "PrestigeTrigger" trigger parameter
-            Debug.Log("Prestige animation triggered!");
+            animator.SetTrigger("PrestigeTrigger");  // Animation for Prestige Level 1
+            Debug.Log("Prestige level 1 animation triggered!");
         }
     }
 
-    // This method will reset the animation flag after the animation plays
-    public void ResetAnimationFlag()
+    public void TriggerPrestige2Animation()
     {
-        // No need for resetting, because trigger will automatically reset itself after being fired
-        Debug.Log("Prestige animation completed.");
+        if (animator != null)
+        {
+            animator.SetTrigger("PrestigeLevel2Trigger");  // Animation for Prestige Level 2
+            Debug.Log("Prestige level 2 animation triggered!");
+        }
+    }
+
+    public void ResetAnimationFlags()
+    {
+        // You don't actually need to reset triggers if they're one-time triggers,
+        // but if you want to manually reset, you can use ResetTrigger:
+        animator.ResetTrigger("PrestigeTrigger");
+        animator.ResetTrigger("PrestigeLevel2Trigger");
+
+        Debug.Log("Animation triggers reset.");
     }
 }

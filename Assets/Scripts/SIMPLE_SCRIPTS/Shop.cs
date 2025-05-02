@@ -24,7 +24,8 @@ public class Shop : MonoBehaviour
     private int prestigeLevel2Cost = 600; // Example cost for reaching prestige level 2
     private int parrotCost = 500;
 
-    public PrestigeAnimatorController prestigeAnimatorController; // Reference to the AnimatorController script
+    public PrestigeAnimatorController prestigeAnimatorLevel1;  // Reference for level 1 animation
+    public PrestigeAnimatorController prestigeAnimatorLevel2;  // Reference for level 2 animation
 
     private void Start()
     {
@@ -44,13 +45,15 @@ public class Shop : MonoBehaviour
             playerMove = FindObjectOfType<PlayerMovementAdvanced>();
         }
 
-        if (prestigeAnimatorController == null)
+        // Ensure the PrestigeAnimatorControllers are assigned in the inspector
+        if (prestigeAnimatorLevel1 == null)
         {
-            prestigeAnimatorController = FindObjectOfType<PrestigeAnimatorController>();
-            if (prestigeAnimatorController == null)
-            {
-                Debug.LogError("PrestigeAnimatorController not found! Assign it in the Inspector.");
-            }
+            Debug.LogError("PrestigeAnimatorController for level 1 is not assigned!");
+        }
+
+        if (prestigeAnimatorLevel2 == null)
+        {
+            Debug.LogError("PrestigeAnimatorController for level 2 is not assigned!");
         }
 
         UpdateUI();
@@ -73,7 +76,6 @@ public class Shop : MonoBehaviour
 
     public void BuyPrestige()
     {
-        // Check if the player can buy prestige level 1
         if (playerInventory.prestigeLevel == 0 && playerInventory.cash >= prestigeCost)
         {
             playerInventory.cash -= prestigeCost;
@@ -83,18 +85,13 @@ public class Shop : MonoBehaviour
             playerInventory.SwitchEnvironment();
 
             Debug.Log("Prestige level increased to 1!");
-
             audioSource.PlayOneShot(prestigeSound);
 
-            // Notify the PrestigeAnimatorController to trigger the animation
-            prestigeAnimatorController.TriggerPrestigeAnimation();
-
-            // Start coroutine to reset animation flag after 3 seconds
-            StartCoroutine(ResetAnimationFlag());
+            // Trigger the level 1 prestige animation
+            prestigeAnimatorLevel1.TriggerPrestigeAnimation();
 
             UpdateUI();
         }
-        // Check if the player can buy prestige level 2
         else if (playerInventory.prestigeLevel == 1 && playerInventory.cash >= prestigeLevel2Cost)
         {
             playerInventory.cash -= prestigeLevel2Cost;
@@ -104,19 +101,14 @@ public class Shop : MonoBehaviour
             playerInventory.SwitchEnvironment();
 
             Debug.Log("Prestige level increased to 2!");
-
             audioSource.PlayOneShot(prestigeSound);
 
-            // Notify the PrestigeAnimatorController to trigger the animation
-            prestigeAnimatorController.TriggerPrestigeAnimation();
-
-            // Start coroutine to reset animation flag after 3 seconds
-            StartCoroutine(ResetAnimationFlag());
+            // Trigger the level 2 prestige animation
+            prestigeAnimatorLevel2.TriggerPrestige2Animation();
 
             UpdateUI();
         }
     }
-
 
     public void BuyParrot()
     {
@@ -183,15 +175,5 @@ public class Shop : MonoBehaviour
         }
 
         cashText.text = "Cash: $" + playerInventory.cash;
-    }
-
-    // Coroutine to reset the animation flag
-    public System.Collections.IEnumerator ResetAnimationFlag()
-    {
-        // Wait for the animation to finish (3 seconds in this case)
-        yield return new WaitForSeconds(3f);
-
-        // Notify the AnimatorController to reset the animation
-        prestigeAnimatorController.ResetAnimationFlag();
     }
 }
