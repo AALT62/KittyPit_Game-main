@@ -8,6 +8,11 @@ public class buttons : MonoBehaviour
     {
         
     }
+    public void OnButtonQuit()
+    {
+
+        Application.Quit();
+    }
     public void OnButtonClick(string sceneName)
     {
 
