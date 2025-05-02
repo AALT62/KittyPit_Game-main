@@ -20,7 +20,7 @@ public class PlayerInventory : MonoBehaviour
     public TMP_Text prestigeStatusText; // Text for displaying prestige status
     public TMP_Text dirtText;           // Text for displaying dirt count
     public TMP_Text cashText;           // Text for displaying cash
-
+    public TMP_Text cashText1;           // Text for displaying cash
     [Header("Environment Switching")]
     public GameObject currentEnvironment;
     public GameObject prestigeEnvironment;
@@ -28,7 +28,6 @@ public class PlayerInventory : MonoBehaviour
     public GameObject currentShovel;
     public GameObject upgradedShovel;
     public GameObject parrot;
-
     // Add dirt to inventory and cash
     public void AddDirt(int amount)
     {
@@ -39,30 +38,47 @@ public class PlayerInventory : MonoBehaviour
     }
 
     // Sell dirt at the buy zone
+    // Sell dirt at the buy zone
     public void SellDirt(int sellPricePerDirt)
     {
         if (dirtCount > 0)
         {
+            // Track how much dirt is sold
             int dirtSold = dirtCount;
-            int earnedCash = dirtSold * sellPricePerDirt;
 
-            // Prestige bonus: double the cash
+            // Calculate how much cash is earned from selling dirt
+            int earnedCash = dirtSold * sellPricePerDirt;
+            cashText1.text = "Cash: $" + earnedCash.ToString();  // Update the cash display
+            Debug.Log("Cash UI Updated: $" + cash);  // Debug log to confirm the update
+            
+            Debug.Log("Cash earned before prestige: $" + earnedCash);
+
+            // Apply prestige bonus if applicable (double cash for prestige level 1 or higher)
             if (prestigeLevel > 0)
             {
-                earnedCash *= 2;
+                earnedCash *= 2;  // Double the cash if prestige level > 0
+                Debug.Log("Cash earned with prestige bonus: $" + earnedCash);
             }
 
+            // Add the earned cash to the player's total
             cash += earnedCash;
+
+            // Reset the dirt count
             dirtCount = 0;
 
-            Debug.Log("Sold " + dirtSold + " dirt for $" + earnedCash + " | Current Cash: " + cash);
-            UpdateInventoryUI();  // Update inventory UI after selling dirt
+            // Debug log for current status
+            Debug.Log("Sold " + dirtSold + " dirt for $" + earnedCash + " | Current Cash: $" + cash);
+
+            // Now update UI after selling dirt
+            UpdateInventoryUI();
         }
         else
         {
             Debug.Log("No dirt to sell!");
         }
     }
+
+
 
     // Called by the Shop when prestige is bought
     public void SwitchEnvironment()
@@ -229,30 +245,17 @@ public class PlayerInventory : MonoBehaviour
 
 
     // Update inventory UI with the latest player data
+    // Update inventory UI with the latest player data
     public void UpdateInventoryUI()
     {
         if (shovelStatusText != null)
         {
-            if (hasUpgradedShovel)
-            {
-                shovelStatusText.text = "Shovel: Upgraded";
-            }
-            else
-            {
-                shovelStatusText.text = "Shovel: Standard";
-            }
+            shovelStatusText.text = hasUpgradedShovel ? "Shovel: Upgraded" : "Shovel: Standard";
         }
 
         if (prestigeStatusText != null)
         {
-            if (prestigeLevel > 0)
-            {
-                prestigeStatusText.text = "Prestige Level: " + prestigeLevel.ToString();
-            }
-            else
-            {
-                prestigeStatusText.text = "Prestige Level: None";
-            }
+            prestigeStatusText.text = prestigeLevel > 0 ? "Prestige Level: " + prestigeLevel.ToString() : "Prestige Level: None";
         }
 
         if (dirtText != null)
@@ -262,8 +265,11 @@ public class PlayerInventory : MonoBehaviour
 
         if (cashText != null)
         {
-            cashText.text = "Cash: $" + cash.ToString();
+            cashText.text = "Cash: $" + cash.ToString();  // Update the cash display
+            Debug.Log("Cash UI Updated: $" + cash);  // Debug log to confirm the update
         }
     }
+
+
 
 }

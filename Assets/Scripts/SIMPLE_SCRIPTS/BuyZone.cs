@@ -1,25 +1,31 @@
 using UnityEngine;
+using TMPro;
 
 public class BuyZone : MonoBehaviour
 {
-    public int dirtSellPrice = 5;  // The price for each dirt sold
-    private bool isPlayerInZone = false;  // To check if player is inside the buy zone
-    public Shop shop;
-    [Header("References")]
-    public PlayerInventory playerInventory;  // Assign in Inspector
+    public int dirtSellPrice = 5; // Price for each dirt sold
+    private bool isPlayerInZone = false;
 
-    public AudioClip dirtSellSound;  // Sound effect for selling dirt
+    [Header("References")]
+    public Shop shop;
+    public PlayerInventory playerInventory;
+    public Animator sellAnimator;           // Animator for the sale animation
+    public AudioClip dirtSellSound;
     private AudioSource audioSource;
 
     private void Start()
     {
-        // Initialize the audioSource reference
         audioSource = GetComponent<AudioSource>();
+
+        if (sellAnimator == null)
+        {
+            Debug.LogError("Sell Animator not assigned!");
+        }
+
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        // Check if the player entered the zone
         if (other.CompareTag("Player"))
         {
             isPlayerInZone = true;
@@ -29,7 +35,6 @@ public class BuyZone : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        // Check if the player left the zone
         if (other.CompareTag("Player"))
         {
             isPlayerInZone = false;
@@ -37,18 +42,42 @@ public class BuyZone : MonoBehaviour
         }
     }
 
-    void Update()
+    private void Update()
     {
-        if (isPlayerInZone && Input.GetKeyDown(KeyCode.G))  // Check if G is pressed and player is in zone
+        if (isPlayerInZone && Input.GetKeyDown(KeyCode.G))
         {
             if (playerInventory != null)
             {
-                playerInventory.SellDirt(dirtSellPrice);
+                // Store how many dirt were sold and how much was earned
+                int soldAmount = playerInventory.dirtCount;
+                int baseEarnings = soldAmount * dirtSellPrice;
+                int totalEarnings = playerInventory.prestigeLevel > 0 ? baseEarnings * 2 : baseEarnings;
 
-                // Play dirt selling sound
-                audioSource.PlayOneShot(dirtSellSound);
+                if (soldAmount > 0)
+                {
+                    // Call SellDirt to do the math, UI, reset dirt count, etc.
+                    playerInventory.SellDirt(dirtSellPrice);
 
-                shop.UpdateUI();  // Update UI after selling dirt
+                    
+                    // Play animation
+                    if (sellAnimator != null)
+                    {
+                        sellAnimator.SetTrigger("Sell");
+                    }
+
+                    // Play sound
+                    if (audioSource != null && dirtSellSound != null)
+                    {
+                        audioSource.PlayOneShot(dirtSellSound);
+                    }
+
+                    // Update shop UI if needed
+                    shop?.UpdateUI();
+                }
+                else
+                {
+                    Debug.Log("No dirt to sell.");
+                }
             }
         }
     }
