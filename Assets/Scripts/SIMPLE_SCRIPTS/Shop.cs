@@ -20,19 +20,16 @@ public class Shop : MonoBehaviour
     private AudioSource audioSource;
     public PlayerMovementAdvanced playerMove;
     private int shovelUpgradeCost = 150;
-    private int prestigeCost = 300;
+    private int prestigeCost = 110;
     private int prestigeLevel2Cost = 600; // Example cost for reaching prestige level 2
     private int parrotCost = 500;
-    public Animation animationComponent;
-    public string animationClipName = "PresSilv"; // The name of the animation clip you want to play
 
+    public PrestigeAnimatorController prestigeAnimatorController; // Reference to the AnimatorController script
 
     private void Start()
     {
-        animationComponent = GetComponent<Animation>(); //gets animation
-        // Initialize the audioSource reference
         audioSource = GetComponent<AudioSource>();
-        // Auto-assign playerInventory if it's not set in Inspector
+
         if (playerInventory == null)
         {
             playerInventory = FindObjectOfType<PlayerInventory>();
@@ -42,14 +39,23 @@ public class Shop : MonoBehaviour
             }
         }
 
-        // Auto-assign playerMove if not already set
         if (playerMove == null)
         {
             playerMove = FindObjectOfType<PlayerMovementAdvanced>();
         }
 
+        if (prestigeAnimatorController == null)
+        {
+            prestigeAnimatorController = FindObjectOfType<PrestigeAnimatorController>();
+            if (prestigeAnimatorController == null)
+            {
+                Debug.LogError("PrestigeAnimatorController not found! Assign it in the Inspector.");
+            }
+        }
+
         UpdateUI();
     }
+
     public void BuyShovelUpgrade()
     {
         if (!playerInventory.hasUpgradedShovel && playerInventory.cash >= shovelUpgradeCost)
@@ -60,51 +66,53 @@ public class Shop : MonoBehaviour
             playerInventory.holdTime = 2f; // Apply effect for shovel upgrade
             Debug.Log("Shovel upgraded!");
 
-            // Play shovel purchase sound
             audioSource.PlayOneShot(shovelSound);
-
-            // Update the UI
             UpdateUI();
         }
     }
 
     public void BuyPrestige()
     {
+        // Check if the player can buy prestige level 1
         if (playerInventory.prestigeLevel == 0 && playerInventory.cash >= prestigeCost)
         {
             playerInventory.cash -= prestigeCost;
             playerInventory.prestigeLevel = 1;
 
-            // Switch to new environment for level 1
             playerMove.PlayerRespawn();
             playerInventory.SwitchEnvironment();
 
             Debug.Log("Prestige level increased to 1!");
 
-            // Play prestige purchase sound
             audioSource.PlayOneShot(prestigeSound);
 
-            //plays animation
-            animationComponent.Play(animationClipName);
+            // Notify the PrestigeAnimatorController to trigger the animation
+            prestigeAnimatorController.TriggerPrestigeAnimation();
 
-            // Update the UI
+            // Start coroutine to reset animation flag after 3 seconds
+            StartCoroutine(ResetAnimationFlag());
+
             UpdateUI();
         }
+        // Check if the player can buy prestige level 2
         else if (playerInventory.prestigeLevel == 1 && playerInventory.cash >= prestigeLevel2Cost)
         {
             playerInventory.cash -= prestigeLevel2Cost;
             playerInventory.prestigeLevel = 2;
+
             playerMove.PlayerRespawn();
             playerInventory.SwitchEnvironment();
-            // Switch to new environment for level 2 (optional)
-            // playerInventory.SwitchToPrestigeLevel2(); // Add this if you want a separate environment
 
             Debug.Log("Prestige level increased to 2!");
 
-            // Play prestige purchase sound
             audioSource.PlayOneShot(prestigeSound);
 
-            // Update the UI
+            // Notify the PrestigeAnimatorController to trigger the animation
+            prestigeAnimatorController.TriggerPrestigeAnimation();
+
+            // Start coroutine to reset animation flag after 3 seconds
+            StartCoroutine(ResetAnimationFlag());
+
             UpdateUI();
         }
     }
@@ -117,22 +125,17 @@ public class Shop : MonoBehaviour
             playerInventory.cash -= parrotCost;
             playerInventory.hasParrot = true;
 
-            // Make the parrot visible once purchased
             if (playerInventory.parrot != null)
             {
-                playerInventory.parrot.SetActive(true); // Make the parrot visible
+                playerInventory.parrot.SetActive(true);
             }
 
             Debug.Log("Parrot purchased!");
 
-            // Play parrot purchase sound
             audioSource.PlayOneShot(parrotSound);
-
-            // Update the UI
             UpdateUI();
         }
     }
-
 
     public void RefreshUIFromOutside()
     {
@@ -141,7 +144,6 @@ public class Shop : MonoBehaviour
 
     public void UpdateUI()
     {
-        // Update shovel text
         if (playerInventory.hasUpgradedShovel)
         {
             shovelPriceText.text = "Purchased";
@@ -153,7 +155,6 @@ public class Shop : MonoBehaviour
             shovelButton.interactable = playerInventory.cash >= shovelUpgradeCost;
         }
 
-        // Update prestige text and button
         if (playerInventory.prestigeLevel == 0)
         {
             prestigePriceText.text = "$" + prestigeCost;
@@ -170,7 +171,6 @@ public class Shop : MonoBehaviour
             prestigeButton.interactable = false;
         }
 
-        // Update parrot text and button
         if (playerInventory.hasParrot)
         {
             parrotPriceText.text = "Owned";
@@ -182,9 +182,16 @@ public class Shop : MonoBehaviour
             parrotButton.interactable = playerInventory.prestigeLevel >= 2 && playerInventory.cash >= parrotCost;
         }
 
-        // Update cash display
         cashText.text = "Cash: $" + playerInventory.cash;
     }
 
+    // Coroutine to reset the animation flag
+    public System.Collections.IEnumerator ResetAnimationFlag()
+    {
+        // Wait for the animation to finish (3 seconds in this case)
+        yield return new WaitForSeconds(3f);
 
+        // Notify the AnimatorController to reset the animation
+        prestigeAnimatorController.ResetAnimationFlag();
+    }
 }
