@@ -17816,8 +17816,6 @@ GameObject:
   - component: {fileID: 954271482}
   - component: {fileID: 954271481}
   - component: {fileID: 954271480}
-  - component: {fileID: 954271484}
-  - component: {fileID: 954271483}
   m_Layer: 5
   m_Name: RawImage
   m_TagString: Untagged
@@ -17842,7 +17840,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -25, y: 2691}
+  m_AnchoredPosition: {x: -35, y: 2691}
   m_SizeDelta: {x: 100, y: -440}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &954271480
@@ -17902,49 +17900,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 954271478}
   m_CullTransparentMesh: 1
---- !u!111 &954271483
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 954271478}
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Animation: {fileID: 7400000, guid: 2c820cb8aa54deb43b65b28637c2de74, type: 2}
-  m_Animations:
-  - {fileID: 7400000, guid: 2c820cb8aa54deb43b65b28637c2de74, type: 2}
-  m_WrapMode: 0
-  m_PlayAutomatically: 0
-  m_AnimatePhysics: 0
-  m_UpdateMode: 0
-  m_CullingType: 0
---- !u!114 &954271484
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 954271478}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2a7a4dcff3800644a80d81583614723, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerInventory: {fileID: 0}
-  shovelPriceText: {fileID: 0}
-  prestigePriceText: {fileID: 0}
-  parrotPriceText: {fileID: 0}
-  cashText: {fileID: 0}
-  shovelButton: {fileID: 0}
-  prestigeButton: {fileID: 0}
-  parrotButton: {fileID: 0}
-  shovelSound: {fileID: 0}
-  prestigeSound: {fileID: 0}
-  parrotSound: {fileID: 0}
-  playerMove: {fileID: 0}
-  animationComponent: {fileID: 954271483}
-  animationClipName: PresSilv
 --- !u!1001 &956368583
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23299,7 +23254,6 @@ GameObject:
   - component: {fileID: 1291049215}
   - component: {fileID: 1291049217}
   - component: {fileID: 1291049218}
-  - component: {fileID: 1291049219}
   m_Layer: 0
   m_Name: Shopmanager
   m_TagString: Untagged
@@ -23331,8 +23285,7 @@ MonoBehaviour:
   prestigeSound: {fileID: 8300000, guid: 8dce02ea40a65fa41bc85d06d91f6d8e, type: 3}
   parrotSound: {fileID: 8300000, guid: 8dce02ea40a65fa41bc85d06d91f6d8e, type: 3}
   playerMove: {fileID: 1917510251}
-  animationComponent: {fileID: 1291049219}
-  animationClipName: PresSilv
+  animator: {fileID: 0}
 --- !u!4 &1291049216
 Transform:
   m_ObjectHideFlags: 0
@@ -23467,23 +23420,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!111 &1291049219
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1291049214}
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Animation: {fileID: 0}
-  m_Animations:
-  - {fileID: 0}
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_UpdateMode: 0
-  m_CullingType: 0
 --- !u!1001 &1297020191
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24927,15 +24863,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7970505149557145945, guid: 6faccd49bbbd3e24fa8f705ba7b70343, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.04763239
+      value: 0.047632135
       objectReference: {fileID: 0}
     - target: {fileID: 7970505149557145945, guid: 6faccd49bbbd3e24fa8f705ba7b70343, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.00000044772818
+      value: 0.00000044772887
       objectReference: {fileID: 0}
     - target: {fileID: 7970505149557145945, guid: 6faccd49bbbd3e24fa8f705ba7b70343, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.00000002132487
+      value: -0.000000021324281
       objectReference: {fileID: 0}
     - target: {fileID: 8361965831143341648, guid: 6faccd49bbbd3e24fa8f705ba7b70343, type: 3}
       propertyPath: m_LocalPosition.x
