@@ -31,6 +31,7 @@ public class PlayerInventory : MonoBehaviour
     public TMP_Text cashText1;
     [Header("Animation")]
     public Animator playerAnimator;
+
     public GameObject prestigeIcon1;  // Prestige Icon for level 1
     public GameObject prestigeIcon2;  // Prestige Icon for level 2
     public GameObject prestigeIcon3;  // Prestige Icon for level 3

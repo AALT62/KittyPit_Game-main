@@ -23,6 +23,7 @@ public class Shop : MonoBehaviour
     private int prestigeCost = 300;
     private int prestigeLevel2Cost = 600; // Example cost for reaching prestige level 2
     private int parrotCost = 500;
+    public Animator parrotAnimator;  // Reference to Parrot Animator
 
     public PrestigeAnimatorController prestigeAnimatorLevel1;  // Reference for level 1 animation
     public PrestigeAnimatorController prestigeAnimatorLevel2;  // Reference for level 2 animation
@@ -125,7 +126,10 @@ public class Shop : MonoBehaviour
             {
                 playerInventory.parrot.SetActive(true);
             }
-
+            if (parrotAnimator != null)
+            {
+                parrotAnimator.SetTrigger("ParrotAppears");  // This assumes you set a trigger in your Animator named "ParrotAppears"
+            }
             Debug.Log("Parrot purchased!");
 
             audioSource.PlayOneShot(parrotSound);
