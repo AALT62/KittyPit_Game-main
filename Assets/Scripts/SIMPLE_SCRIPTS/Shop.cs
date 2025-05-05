@@ -9,10 +9,12 @@ public class Shop : MonoBehaviour
     public TMP_Text prestigePriceText;
     public TMP_Text parrotPriceText;
     public TMP_Text cashText; // Cash Text in Shop Panel
+    public TMP_Text backpackPriceText;
 
     public Button shovelButton;
     public Button prestigeButton;
     public Button parrotButton;
+    public Button backpackButton;
 
     public AudioClip shovelSound;  // Sound effect for buying shovel
     public AudioClip prestigeSound;  // Sound effect for buying prestige
@@ -23,6 +25,7 @@ public class Shop : MonoBehaviour
     private int prestigeCost = 300;
     private int prestigeLevel2Cost = 600; // Example cost for reaching prestige level 2
     private int parrotCost = 500;
+    private int backpackCost = 250;
     public Animator parrotAnimator;  // Reference to Parrot Animator
 
     public PrestigeAnimatorController prestigeAnimatorLevel1;  // Reference for level 1 animation
@@ -114,7 +117,23 @@ public class Shop : MonoBehaviour
             UpdateUI();
         }
     }
+    public void BuyBackpack()
+    {
+        if (!playerInventory.hasBackpack&& playerInventory.prestigeLevel >= 1 && playerInventory.cash >= backpackCost)
+        {
+            playerInventory.cash -= backpackCost;
+            playerInventory.hasBackpack = true;
 
+            if (playerInventory.backpack != null)
+            {
+                playerInventory.backpack.SetActive(true);
+            }
+            Debug.Log("backpack purchased!");
+            playerInventory.dirtMax = 10;
+            
+            UpdateUI();
+        }
+    }
     public void BuyParrot()
     {
         if (!playerInventory.hasParrot && playerInventory.prestigeLevel >= 2 && playerInventory.cash >= parrotCost)
@@ -181,6 +200,19 @@ public class Shop : MonoBehaviour
             parrotPriceText.text = "$" + parrotCost;
             parrotButton.interactable = playerInventory.prestigeLevel >= 2 && playerInventory.cash >= parrotCost;
         }
+        // BACKPACK
+        if (playerInventory.hasBackpack)
+        {
+            backpackPriceText.text = "Owned";
+            backpackButton.interactable = false;
+        }
+        else
+        {
+            backpackPriceText.text = "$" + backpackCost;
+            // Only enable if Prestige 2 and enough cash
+            backpackButton.interactable = playerInventory.prestigeLevel >= 1 && playerInventory.cash >= backpackCost;
+        }
+
 
         cashText.text = "Cash: $" + playerInventory.cash;
     }

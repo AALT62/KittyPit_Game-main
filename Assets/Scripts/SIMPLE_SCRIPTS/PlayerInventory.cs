@@ -12,6 +12,7 @@ public class PlayerInventory : MonoBehaviour
     public bool hasUpgradedShovel = false;
     public float holdTime = 3f;
     public bool hasParrot = false;
+    public bool hasBackpack = false;
     public float jumpBoost = 0.5f;
 
     [Header("References")]
@@ -19,6 +20,7 @@ public class PlayerInventory : MonoBehaviour
     public GameObject currentShovel;
     public GameObject upgradedShovel;
     public GameObject parrot;
+    public GameObject backpack;
     public GameObject currentEnvironment;
     public GameObject prestigeEnvironment;
     public GameObject thirdEnvironment;
@@ -46,7 +48,8 @@ public class PlayerInventory : MonoBehaviour
         // Setup parrot visibility
         if (parrot != null)
             parrot.SetActive(hasParrot);
-
+        if (backpack != null)
+            backpack.SetActive(hasBackpack);
         // Setup correct shovel model
         ApplyShovelState();
 
