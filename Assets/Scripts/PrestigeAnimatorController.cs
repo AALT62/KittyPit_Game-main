@@ -32,6 +32,7 @@ public class PrestigeAnimatorController : MonoBehaviour
         }
     }
 
+
     public void ResetAnimationFlags()
     {
         // You don't actually need to reset triggers if they're one-time triggers,
