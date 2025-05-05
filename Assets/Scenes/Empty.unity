@@ -4760,7 +4760,7 @@ Animator:
   m_GameObject: {fileID: 228699208}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 15d66b2d43e461143a5ac36e04ea1990, type: 2}
+  m_Controller: {fileID: 9100000, guid: 3274a2405c6b55247b6f016b6d056f6b, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -24225,19 +24225,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7276005193603672288, guid: 4d108bd77dc3d28409a532bed84ff6ee, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9983416
+      value: 0.99834156
       objectReference: {fileID: 0}
     - target: {fileID: 7276005193603672288, guid: 4d108bd77dc3d28409a532bed84ff6ee, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.04760751
+      value: 0.047606867
       objectReference: {fileID: 0}
     - target: {fileID: 7276005193603672288, guid: 4d108bd77dc3d28409a532bed84ff6ee, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.032331318
+      value: -0.032331314
       objectReference: {fileID: 0}
     - target: {fileID: 7276005193603672288, guid: 4d108bd77dc3d28409a532bed84ff6ee, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.0015417704
+      value: 0.0015417496
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -25092,7 +25092,7 @@ MonoBehaviour:
   parrotSound: {fileID: 8300000, guid: 8dce02ea40a65fa41bc85d06d91f6d8e, type: 3}
   playerMove: {fileID: 1917510251}
   parrotAnimator: {fileID: 2027800453}
-  backpackAnimator: {fileID: 0}
+  backpackAnimator: {fileID: 1521981291}
   prestigeAnimatorLevel1: {fileID: 228699210}
   prestigeAnimatorLevel2: {fileID: 739551235}
   CashSold: {fileID: 0}
@@ -27177,15 +27177,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7970505149557145945, guid: 6faccd49bbbd3e24fa8f705ba7b70343, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.047632284
+      value: 0.047631875
       objectReference: {fileID: 0}
     - target: {fileID: 7970505149557145945, guid: 6faccd49bbbd3e24fa8f705ba7b70343, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.00000044772273
+      value: 0.00000044772221
       objectReference: {fileID: 0}
     - target: {fileID: 7970505149557145945, guid: 6faccd49bbbd3e24fa8f705ba7b70343, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.000000021328573
+      value: -0.000000021328729
       objectReference: {fileID: 0}
     - target: {fileID: 8361965831143341648, guid: 6faccd49bbbd3e24fa8f705ba7b70343, type: 3}
       propertyPath: m_LocalPosition.x
