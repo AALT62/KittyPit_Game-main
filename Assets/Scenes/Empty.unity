@@ -529,7 +529,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!222 &32055614
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -547,7 +547,7 @@ RectTransform:
   m_GameObject: {fileID: 32055612}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.1592, y: 1.1592, z: 1.1592}
+  m_LocalScale: {x: 0.94405246, y: 0.94405246, z: 0.94405246}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1111627743}
@@ -578,7 +578,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.3529412}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2323,7 +2323,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &141839673
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4044,6 +4044,9 @@ MonoBehaviour:
   cashText: {fileID: 1950278089}
   cashText1: {fileID: 0}
   playerAnimator: {fileID: 0}
+  prestigeIcon1: {fileID: 0}
+  prestigeIcon2: {fileID: 0}
+  prestigeIcon3: {fileID: 0}
 --- !u!82 &217060960
 AudioSource:
   m_ObjectHideFlags: 0
@@ -13117,7 +13120,7 @@ RectTransform:
   m_GameObject: {fileID: 675406825}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.1641785, y: 1.1493353, z: 1.1641785}
+  m_LocalScale: {x: 0.94299835, y: 0.9309752, z: 0.94299835}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1950278088}
@@ -13152,7 +13155,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.29803923}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -25899,15 +25902,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7970505149557145945, guid: 6faccd49bbbd3e24fa8f705ba7b70343, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.04763224
+      value: 0.047632284
       objectReference: {fileID: 0}
     - target: {fileID: 7970505149557145945, guid: 6faccd49bbbd3e24fa8f705ba7b70343, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.00000044772545
+      value: 0.00000044772523
       objectReference: {fileID: 0}
     - target: {fileID: 7970505149557145945, guid: 6faccd49bbbd3e24fa8f705ba7b70343, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.000000021326676
+      value: -0.000000021326853
       objectReference: {fileID: 0}
     - target: {fileID: 8361965831143341648, guid: 6faccd49bbbd3e24fa8f705ba7b70343, type: 3}
       propertyPath: m_LocalPosition.x
@@ -34461,6 +34464,9 @@ MonoBehaviour:
   cashText: {fileID: 1950278089}
   cashText1: {fileID: 1267097760}
   playerAnimator: {fileID: 1351086183}
+  prestigeIcon1: {fileID: 576524400}
+  prestigeIcon2: {fileID: 251090309}
+  prestigeIcon3: {fileID: 395641339}
 --- !u!82 &1917510262
 AudioSource:
   m_ObjectHideFlags: 0

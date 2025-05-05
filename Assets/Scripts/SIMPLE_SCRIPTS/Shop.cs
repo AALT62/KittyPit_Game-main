@@ -20,7 +20,7 @@ public class Shop : MonoBehaviour
     private AudioSource audioSource;
     public PlayerMovementAdvanced playerMove;
     private int shovelUpgradeCost = 150;
-    private int prestigeCost = 110;
+    private int prestigeCost = 300;
     private int prestigeLevel2Cost = 600; // Example cost for reaching prestige level 2
     private int parrotCost = 500;
 
@@ -30,6 +30,7 @@ public class Shop : MonoBehaviour
 
     private void Start()
     {
+        UpdateUI();
         audioSource = GetComponent<AudioSource>();
 
         if (playerInventory == null)
@@ -84,7 +85,8 @@ public class Shop : MonoBehaviour
 
             playerMove.PlayerRespawn();
             playerInventory.SwitchEnvironment();
-
+            playerInventory.prestigeIcon1.SetActive(false);
+            playerInventory.prestigeIcon2.SetActive(true);
             Debug.Log("Prestige level increased to 1!");
             audioSource.PlayOneShot(prestigeSound);
 
@@ -100,7 +102,8 @@ public class Shop : MonoBehaviour
 
             playerMove.PlayerRespawn();
             playerInventory.SwitchEnvironment();
-
+            playerInventory.prestigeIcon2.SetActive(false);
+            playerInventory.prestigeIcon3.SetActive(true);
             Debug.Log("Prestige level increased to 2!");
             audioSource.PlayOneShot(prestigeSound);
 

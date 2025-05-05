@@ -31,10 +31,14 @@ public class PlayerInventory : MonoBehaviour
     public TMP_Text cashText1;
     [Header("Animation")]
     public Animator playerAnimator;
+    public GameObject prestigeIcon1;  // Prestige Icon for level 1
+    public GameObject prestigeIcon2;  // Prestige Icon for level 2
+    public GameObject prestigeIcon3;  // Prestige Icon for level 3
+
     void Start()
     {
         cash = 100;
-
+        UpdateInventoryUI();
         // Setup environments
         SwitchEnvironment();
 
@@ -47,6 +51,10 @@ public class PlayerInventory : MonoBehaviour
 
         // Update UI
         UpdateInventoryUI();
+        // Optionally, if you want to hide all icons at the start:
+        prestigeIcon1.SetActive(true);
+        prestigeIcon2.SetActive(false);
+        prestigeIcon3.SetActive(false);
     }
 
     public void AddDirt(int amount)
@@ -133,12 +141,15 @@ public class PlayerInventory : MonoBehaviour
 
     public void UpdateInventoryUI()
     {
+        // Shovel status
         if (shovelStatusText != null)
             shovelStatusText.text = hasUpgradedShovel ? "Shovel: Upgraded" : "Shovel: Standard";
 
+        // Prestige status
         if (prestigeStatusText != null)
             prestigeStatusText.text = prestigeLevel > 0 ? $"Prestige Level: {prestigeLevel}" : "Prestige Level: None";
 
+        // Update Dirt and Cash UI
         if (dirtText != null)
             dirtText.text = "Dirt: " + dirtCount;
 
@@ -147,5 +158,9 @@ public class PlayerInventory : MonoBehaviour
             cashText.text = "Cash: $" + cash;
             Debug.Log("Cash UI Updated: $" + cash);
         }
+
+        // Update the correct Prestige Icon based on prestige level
+        
     }
+
 }
