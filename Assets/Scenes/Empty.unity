@@ -4034,20 +4034,21 @@ MonoBehaviour:
   prestigeLevel: 0
   hasUpgradedShovel: 0
   holdTime: 3
-  shop: {fileID: 1291049215}
   hasParrot: 0
   jumpBoost: 0.5
+  shop: {fileID: 1291049215}
+  currentShovel: {fileID: 1596051372}
+  upgradedShovel: {fileID: 1287729249}
+  parrot: {fileID: 0}
+  currentEnvironment: {fileID: 970536559}
+  prestigeEnvironment: {fileID: 195304319}
+  thirdEnvironment: {fileID: 0}
   shovelStatusText: {fileID: 198794836}
   prestigeStatusText: {fileID: 181283176}
   dirtText: {fileID: 922452828}
   cashText: {fileID: 1950278089}
   cashText1: {fileID: 0}
-  currentEnvironment: {fileID: 970536559}
-  prestigeEnvironment: {fileID: 195304319}
-  thirdEnvironment: {fileID: 0}
-  currentShovel: {fileID: 1596051372}
-  upgradedShovel: {fileID: 1287729249}
-  parrot: {fileID: 0}
+  playerAnimator: {fileID: 0}
 --- !u!82 &217060960
 AudioSource:
   m_ObjectHideFlags: 0
@@ -23161,19 +23162,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7276005193603672288, guid: 4d108bd77dc3d28409a532bed84ff6ee, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9983416
+      value: 0.99834156
       objectReference: {fileID: 0}
     - target: {fileID: 7276005193603672288, guid: 4d108bd77dc3d28409a532bed84ff6ee, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.04760751
+      value: 0.04760815
       objectReference: {fileID: 0}
     - target: {fileID: 7276005193603672288, guid: 4d108bd77dc3d28409a532bed84ff6ee, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.032331318
+      value: -0.032331314
       objectReference: {fileID: 0}
     - target: {fileID: 7276005193603672288, guid: 4d108bd77dc3d28409a532bed84ff6ee, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.0015417704
+      value: 0.001541791
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -25714,19 +25715,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7970505149557145945, guid: 6faccd49bbbd3e24fa8f705ba7b70343, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.998865
+      value: 0.99886495
       objectReference: {fileID: 0}
     - target: {fileID: 7970505149557145945, guid: 6faccd49bbbd3e24fa8f705ba7b70343, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.047632344
+      value: 0.04763254
       objectReference: {fileID: 0}
     - target: {fileID: 7970505149557145945, guid: 6faccd49bbbd3e24fa8f705ba7b70343, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.00000044772597
+      value: 0.00000044772582
       objectReference: {fileID: 0}
     - target: {fileID: 7970505149557145945, guid: 6faccd49bbbd3e24fa8f705ba7b70343, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.000000021326374
+      value: -0.000000021326548
       objectReference: {fileID: 0}
     - target: {fileID: 8361965831143341648, guid: 6faccd49bbbd3e24fa8f705ba7b70343, type: 3}
       propertyPath: m_LocalPosition.x
@@ -33843,11 +33844,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Shovel
+  m_text: 'Metal Dectector
 
-    Unlocked!
-
-'
+    Unlocked!'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c4d935285c2e07f49846d4bd2d2186e0, type: 2}
   m_sharedMaterial: {fileID: 4120228575104734277, guid: c4d935285c2e07f49846d4bd2d2186e0, type: 2}
@@ -34123,20 +34122,21 @@ MonoBehaviour:
   prestigeLevel: 0
   hasUpgradedShovel: 0
   holdTime: 3
-  shop: {fileID: 1291049215}
   hasParrot: 0
   jumpBoost: 0.5
+  shop: {fileID: 1291049215}
+  currentShovel: {fileID: 1596051372}
+  upgradedShovel: {fileID: 1287729249}
+  parrot: {fileID: 52767490}
+  currentEnvironment: {fileID: 970536559}
+  prestigeEnvironment: {fileID: 195304319}
+  thirdEnvironment: {fileID: 612773409}
   shovelStatusText: {fileID: 198794836}
   prestigeStatusText: {fileID: 181283176}
   dirtText: {fileID: 922452828}
   cashText: {fileID: 1950278089}
   cashText1: {fileID: 1267097760}
-  currentEnvironment: {fileID: 970536559}
-  prestigeEnvironment: {fileID: 195304319}
-  thirdEnvironment: {fileID: 612773409}
-  currentShovel: {fileID: 1596051372}
-  upgradedShovel: {fileID: 1287729249}
-  parrot: {fileID: 52767490}
+  playerAnimator: {fileID: 1351086183}
 --- !u!82 &1917510262
 AudioSource:
   m_ObjectHideFlags: 0
