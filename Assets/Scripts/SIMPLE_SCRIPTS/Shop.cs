@@ -26,6 +26,7 @@ public class Shop : MonoBehaviour
 
     public PrestigeAnimatorController prestigeAnimatorLevel1;  // Reference for level 1 animation
     public PrestigeAnimatorController prestigeAnimatorLevel2;  // Reference for level 2 animation
+    public PrestigeAnimatorController CashSold;  // Reference for Cash Sold animation
 
     private void Start()
     {
