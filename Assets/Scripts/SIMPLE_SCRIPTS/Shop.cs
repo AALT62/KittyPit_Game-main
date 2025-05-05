@@ -27,7 +27,7 @@ public class Shop : MonoBehaviour
     private int parrotCost = 500;
     private int backpackCost = 250;
     public Animator parrotAnimator;  // Reference to Parrot Animator
-
+    public Animator backpackAnimator;  // Reference to Parrot Animator
     public PrestigeAnimatorController prestigeAnimatorLevel1;  // Reference for level 1 animation
     public PrestigeAnimatorController prestigeAnimatorLevel2;  // Reference for level 2 animation
     public PrestigeAnimatorController CashSold;  // Reference for Cash Sold animation
@@ -127,6 +127,10 @@ public class Shop : MonoBehaviour
             if (playerInventory.backpack != null)
             {
                 playerInventory.backpack.SetActive(true);
+            }
+            if (backpackAnimator != null)
+            {
+                backpackAnimator.SetTrigger("BackpackAppears");  // This assumes you set a trigger in your Animator named "ParrotAppears"
             }
             Debug.Log("backpack purchased!");
             playerInventory.dirtMax = 10;

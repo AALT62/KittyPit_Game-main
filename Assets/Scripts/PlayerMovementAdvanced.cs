@@ -97,7 +97,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
         
         
         transform.position = spawnPoint; // Reset the position to spawn point
-        rb.linearVelocity = Vector3.zero; // Reset the velocity
+        
     }
 
     private bool CheckIfGrounded()
