@@ -7,6 +7,7 @@ public class PanelToggleOnHold : MonoBehaviour
     public GameObject shopPanel;
     public GameObject gameUi;
     public GameObject confirmReturnPanel;  // Panel for the confirmation prompt
+    public GameObject devCheats;
     public Button returnToMainMenuButton;  // Button to return to main menu
 
     private float escHoldTime = 1f;        // Time to hold Esc key (1 second)
@@ -18,22 +19,23 @@ public class PanelToggleOnHold : MonoBehaviour
     {
         // Ensure confirmReturnPanel is inactive at the start
         confirmReturnPanel.SetActive(false);
+        devCheats.SetActive(false);
     }
 
     void Update()
     {
         bool isHoldingB = Input.GetKey(KeyCode.B);
         bool isHoldingTab = Input.GetKey(KeyCode.Tab);
-
+        bool isisHoldingC = Input.GetKey(KeyCode.C);
         // Toggle UI panels
         shopPanel.SetActive(isHoldingB);
         inventoryPanel.SetActive(isHoldingTab);
-
+        devCheats.SetActive(isisHoldingC);
         // Show game UI only when neither panel is open
-        gameUi.SetActive(!isHoldingB && !isHoldingTab);
+        gameUi.SetActive(!isHoldingB && !isHoldingTab && !isisHoldingC);
 
         // Pause ONLY if shop or inventory is open
-        if (isHoldingB || isHoldingTab)
+        if (isHoldingB || isisHoldingC)
         {
             Time.timeScale = 0f;  // Pause the game if either panel is held down
             Cursor.visible = true;  // Make cursor visible when any panel is open

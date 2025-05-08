@@ -60,7 +60,18 @@ public class PlayerInventory : MonoBehaviour
         prestigeIcon2.SetActive(false);
         prestigeIcon3.SetActive(false);
     }
-
+    public void OnButtonClickDirt()
+    {
+        dirtCount += 10;
+        UpdateInventoryUI();
+        shop.UpdateUI();
+    }
+    public void OnButtonClickCash()
+    {
+        cash += 100;
+        UpdateInventoryUI();
+        shop.UpdateUI();
+    }
     public void AddDirt(int amount)
     {
         dirtCount += amount;
